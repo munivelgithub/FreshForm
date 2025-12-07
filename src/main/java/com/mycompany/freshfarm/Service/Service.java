@@ -12,12 +12,11 @@ public class Service {
     private Repository repository;
 
     public List<Model> searchEverything(String category_name, String keyword) {
-        if(keyword == null || keyword.equals("null")){
-            repository.findByCategory(category_name);
+        if(category_name!=null && (keyword == null || keyword.equals("null")||keyword.isBlank())){
+           return  repository.findByCategory(category_name);
         }
         return  repository.findByNameCategory(category_name,keyword);
     }
-
 
     public List<Model> getCategoryProducts(String name) {
         return repository.findByCategory(name);
