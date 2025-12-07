@@ -1,17 +1,13 @@
-package com.mycompany.freefarm.Controller;
+package com.mycompany.freshfarm.Controller;
 
-import com.mycompany.freefarm.Model;
-import com.mycompany.freefarm.Service;
+import com.mycompany.freshfarm.Model.Model;
+import com.mycompany.freshfarm.Service.Service;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/FreshFarm")
 public class HomeController {
 
@@ -29,10 +25,16 @@ public class HomeController {
     public String cart(){
         return "Category";
     }
+
     @GetMapping({"/Category/{name}","Fruit/{name}"})
     public List<Model> getcategoryname(@PathVariable String name){
         List<Model> ls=service.getCategoryProducts(name);
         return ls;
+    }
+
+    @GetMapping({"/Search/{category_name}/{keyword}"})
+    public List<Model> search(@PathVariable String category_name,@PathVariable String keyword){
+        return  service.searchEverything(category_name,keyword);
     }
 
 

@@ -1,4 +1,4 @@
-package com.mycompany.freefarm;
+package com.mycompany.freshfarm;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

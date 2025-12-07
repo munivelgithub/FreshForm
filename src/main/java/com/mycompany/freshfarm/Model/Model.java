@@ -1,4 +1,4 @@
-package com.mycompany.freefarm;
+package com.mycompany.freshfarm.Model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

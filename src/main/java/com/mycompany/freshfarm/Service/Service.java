@@ -1,5 +1,7 @@
-package com.mycompany.freefarm;
+package com.mycompany.freshfarm.Service;
 
+import com.mycompany.freshfarm.Model.Model;
+import com.mycompany.freshfarm.Repository.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -9,14 +11,11 @@ public class Service {
     @Autowired
     private Repository repository;
 
-    public List<Model> searchEverything(String keyword) {
+    public List<Model> searchEverything(String category_name, String keyword) {
         if(keyword == null || keyword.equals("null")){
-            return repository.findAll();
+            repository.findByCategory(category_name);
         }
-        return  repository.searchByKeyword(keyword);
-    }
-    public List<Model> getAll() {
-        return repository.findAll();
+        return  repository.findByNameCategory(category_name,keyword);
     }
 
 
