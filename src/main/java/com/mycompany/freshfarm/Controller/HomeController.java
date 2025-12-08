@@ -3,11 +3,12 @@ package com.mycompany.freshfarm.Controller;
 import com.mycompany.freshfarm.Model.Model;
 import com.mycompany.freshfarm.Service.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/FreshFarm")
 public class HomeController {
 
@@ -21,15 +22,13 @@ public class HomeController {
     public String category(){
         return "Category";
     }
-    @GetMapping("/Cart")
-    public String cart(){
-        return "Category";
-    }
 
-    @GetMapping({"/Category/{name}","Fruit/{name}"})
-    public List<Model> getcategoryname(@PathVariable String name){
+
+    @GetMapping("/Category/{name}")
+    public String getcategoryname(org.springframework.ui.Model model, @PathVariable String name){
         List<Model> ls=service.getCategoryProducts(name);
-        return ls;
+        model.addAttribute("products",ls);
+        return "Display";
     }
 
     @GetMapping({"/Search/{category_name}/{keyword}"})

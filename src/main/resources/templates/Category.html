@@ -109,7 +109,8 @@
     .category {
         background-color: #f0f8ff;
         border: 2px solid var(--brand-color);
-        padding: 20px;
+        /* REMOVED default padding since it is now on the anchor tag */
+        padding: 0;
         border-radius: 10px;
         text-align: center;
         font-size: 1.2em;
@@ -117,10 +118,25 @@
         transition: background-color 0.3s, color 0.3s;
     }
 
+    /* ADDED: Styling for the hyperlink inside the category box */
+    .category a {
+        text-decoration: none; /* REMOVES UNDERLINE */
+        color: inherit; /* Ensures the text color is inherited from the parent .category (green) */
+        /* Make the link take up the full card area for better clicking */
+        display: block;
+        padding: 20px;
+    }
+
     .category:hover {
         background-color: var(--brand-color);
+        color: #ffffff; /* This changes the inherited color for the <a> tag */
+    }
+
+    /* Optional: Ensure text color explicitly stays white on hover */
+    .category:hover a {
         color: #ffffff;
     }
+
   </style>
 </head>
 <body>
@@ -139,11 +155,29 @@
   </header>
   <main>
     <div class="categories">
-      <div class="category" id="vegetables">Vegetables</div>
-      <div class="category" id="herbs">Herbs</div>
-      <div class="category" id="powders">Powders</div>
-      <div class="category" id="pickles">Pickles</div>
-      <div class="category" id="grains">Grains</div>
+      <div class="category" id="vegetables">
+        <a th:href="@{/FreshFarm/Category/Vegetable}">
+          Vegetables
+        </a>
+      </div>
+      <div class="category" id="fruits">
+        <a th:href="@{/FreshFarm/Category/Fruit}">
+          Fruits
+        </a></div>
+      <div class="category" id="powders">
+        <a th:href="@{/FreshFarm/Category/Powder}">
+          Powders
+        </a></div>
+      <div class="category" id="pickles">
+        <a th:href="@{/FreshFarm/Category/Pickle}">
+          Pickles
+        </a>
+      </div>
+      <div class="category" id="grains">
+        <a th:href="@{/FreshFarm/Category/Grain}">
+          Grains
+        </a>
+      </div>
     </div>
   </main>
 </div>
