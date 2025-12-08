@@ -28,13 +28,19 @@ public class HomeController {
     public String getcategoryname(org.springframework.ui.Model model, @PathVariable String name){
         List<Model> ls=service.getCategoryProducts(name);
         model.addAttribute("products",ls);
+        model.addAttribute("category", name);
         return "Display";
     }
 
-    @GetMapping({"/Search/{category_name}/{keyword}"})
-    public List<Model> search(@PathVariable String category_name,@PathVariable String keyword){
-        return  service.searchEverything(category_name,keyword);
-    }
+    @GetMapping("/Search/{category_name}")
+    public String search(@PathVariable String category_name, @RequestParam String keyword,
+                         org.springframework.ui.Model model) {
 
+        List<Model> searched_data = service.searchEverything(category_name, keyword);
+
+        model.addAttribute("products", searched_data); // show results
+        model.addAttribute("category", category_name); // keep category for next search
+        return "Display"; // reload same page
+    }
 
 }

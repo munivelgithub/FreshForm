@@ -17,7 +17,6 @@ public class Service {
         }
         return  repository.findByNameCategory(category_name,keyword);
     }
-
     public List<Model> getCategoryProducts(String name) {
         return repository.findByCategory(name);
     }

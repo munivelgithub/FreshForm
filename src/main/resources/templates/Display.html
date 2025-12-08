@@ -217,10 +217,12 @@
 
     <div class="center-title">Fresh Farm Product Catalog</div>
 
-    <div class="search-box">
-        <input type="text" placeholder="🔍 Search products...">
-        <button>🔍</button>
-    </div>
+    <form th:action="@{/FreshFarm/Search/{category}(category=${category})}" method="get" class="search-box">
+        <input type="text" placeholder="🔍 Search products..." name="keyword">
+        <button type="submit">🔍 Search</button>
+    </form>
+
+
     <div class="product-grid-wrapper">
         <div class="product-grid">
             <th:block th:each="product:${products}">
