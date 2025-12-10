@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>Shopping Cart</title>
@@ -209,7 +210,7 @@
     </a>
   </div>
 
-  <div class="row">
+  <div class="row" th:object="${carts}">
 
     <div class="col-lg-8">
       <h3 class="h5 mb-3">Items in Cart (2)</h3>
@@ -219,8 +220,8 @@
           <div class="row align-items-center">
 
             <div class="col-md-5">
-              <h5 class="card-title text-success">Fresh Organic Apples</h5>
-              <p class="small text-muted mb-0">
+              <h5 class="card-title text-success" th:text="*{name}">Fresh Organic Apples</h5>
+              <p class="small text-muted mb-0" th:text="*{itemweight}">
                 Fruits | 1 kg
               </p>
             </div>
@@ -245,67 +246,37 @@
         </div>
       </div>
 
-      <div class="card mb-3 shadow-sm">
-        <div class="card-body">
-          <div class="row align-items-center">
-
-            <div class="col-md-5">
-              <h5 class="card-title text-success">Dairy Farm Milk</h5>
-              <p class="small text-muted mb-0">
-                Dairy | 1 Gallon
-              </p>
-            </div>
-
-            <div class="col-md-3 d-flex align-items-center justify-content-center">
-              <form action="/cart/update" method="post" class="d-flex align-items-center">
-                <input type="hidden" name="productId" value="205" />
-                <button type="submit" name="action" value="decrease" class="btn btn-sm btn-outline-danger me-2">-</button>
-                <span class="fw-bold">1</span> <button type="submit" name="action" value="increase" class="btn btn-sm btn-outline-success ms-2">+</button>
-              </form>
-            </div>
-
-            <div class="col-md-2 text-end">
-              <span class="fw-bold text-danger">$4.50</span>
-              <span class="small text-muted">/ea</span>
-            </div>
-
-            <div class="col-md-2 text-end">
-              <h5 class="mb-0 fw-bold">$4.50</h5> </div>
-
-          </div>
-        </div>
-      </div>
 
     </div>
 
-    <div class="col-lg-4">
-      <div class="card shadow-lg bg-light p-4 sticky-top" style="top: 20px;">
-        <h3 class="h4 mb-4">Order Summary</h3>
+<!--    <div class="col-lg-4">-->
+<!--      <div class="card shadow-lg bg-light p-4 sticky-top" style="top: 20px;">-->
+<!--        <h3 class="h4 mb-4">Order Summary</h3>-->
 
-        <ul class="list-group list-group-flush mb-4">
-          <li class="list-group-item d-flex justify-content-between bg-light">
-            Subtotal:
-            <span>$14.50</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between bg-light text-muted small">
-            Shipping:
-            <span>$5.00</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between bg-light text-muted small">
-            Tax:
-            <span>$1.50</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between bg-light fw-bold h5 text-dark">
-            Total:
-            <span class="text-danger">$21.00</span> </li>
-        </ul>
+<!--        <ul class="list-group list-group-flush mb-4">-->
+<!--          <li class="list-group-item d-flex justify-content-between bg-light">-->
+<!--            Subtotal:-->
+<!--            <span>$14.50</span>-->
+<!--          </li>-->
+<!--          <li class="list-group-item d-flex justify-content-between bg-light text-muted small">-->
+<!--            Shipping:-->
+<!--            <span>$5.00</span>-->
+<!--          </li>-->
+<!--          <li class="list-group-item d-flex justify-content-between bg-light text-muted small">-->
+<!--            Tax:-->
+<!--            <span>$1.50</span>-->
+<!--          </li>-->
+<!--          <li class="list-group-item d-flex justify-content-between bg-light fw-bold h5 text-dark">-->
+<!--            Total:-->
+<!--            <span class="text-danger">$21.00</span> </li>-->
+<!--        </ul>-->
 
-        <div class="d-grid gap-2">
-          <button class="btn btn-success btn-lg">Proceed to Checkout</button>
-          <small class="text-center text-muted">Shipping calculated at checkout.</small>
-        </div>
-      </div>
-    </div>
+<!--        <div class="d-grid gap-2">-->
+<!--          <button class="btn btn-success btn-lg">Proceed to Checkout</button>-->
+<!--          <small class="text-center text-muted">Shipping calculated at checkout.</small>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
 
   </div>
 

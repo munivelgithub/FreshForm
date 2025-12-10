@@ -1,6 +1,7 @@
 package com.mycompany.freshfarm.Service;
 
 import com.mycompany.freshfarm.Model.Model;
+import com.mycompany.freshfarm.Repository.CartRepository;
 import com.mycompany.freshfarm.Repository.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -10,6 +11,8 @@ import java.util.List;
 public class Service {
     @Autowired
     private Repository repository;
+
+
 
     public List<Model> searchEverything(String category_name, String keyword) {
         if(category_name!=null && (keyword == null || keyword.equals("null")||keyword.isBlank())){

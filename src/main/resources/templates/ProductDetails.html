@@ -1,198 +1,231 @@
 <!DOCTYPE html>
-<html lang="en"
-xmlns:th="http://www.thymleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Fresh Apples - Product Details</title>
+    <title>Product Details | Fresh Farm</title>
 
     <style>
-        body {
-          font-family: Arial, sans-serif;
-          background: #ffffff;
-          margin: 0;
-          padding: 0;
-          color: #2e8b57;
+        :root {
+            --green: #2e8b57;
+            --lightgreen: #32cd32;
+            --bg: #f5f5f5;
+            --border: #dcdcdc;
+            --text: #1a1a1a;
         }
 
-        /* Navbar */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        /* NAV BAR */
         .top-bar {
-          background: #000000;
-          color: #2e8b57;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding: 15px 20px;
+            background: #000;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .title {
-          font-size: 24px;
-          font-weight: bold;
-          color: #2e8b57;
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--lightgreen);
         }
 
-        .back-btn {
-          border: 2px solid #2e8b57;
-          padding: 6px 18px;
-          text-decoration: none;
-          color: #2e8b57;
-          border-radius: 6px;
-          font-size: 14px;
-          transition: 0.3s ease;
-        }
+      .back-btn {
+    color: #32cd32;                 /* Text green */
+    padding: 6px 16px;
+    border-radius: 20px;
+    border: 2px solid #32cd32;      /* Border green */
+    text-decoration: none;
+    background: transparent;        /* No background */
+    transition: 0.3s ease;
+    font-weight: 600;
+}
 
-        .back-btn:hover {
-          color: #32cd32;
-          background: none;
-        }
+.back-btn:hover {
+    background: #32cd32;            /* Green background */
+    color: black;                   /* Black text on hover */
+}
 
-        /* Page container */
+
+
+        /* MAIN CONTAINER */
         .container {
-          padding: 25px;
-          max-width: 1000px;
-          margin: auto;
+            max-width: 1200px;
+            margin: auto;
+            padding: 25px;
         }
 
         .center-title {
-          text-align: center;
-          font-size: 26px;
-          margin-bottom: 20px;
-          font-weight: bold;
-          color: #228b22;
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--green);
+            text-align: center;
+            margin-bottom: 25px;
         }
 
-        /* Layout: Left Image + Right Details */
+        /* DETAILS SECTION */
         .details-box {
-          display: flex;
-          gap: 30px;
-          margin-top: 30px;
-          flex-wrap: wrap;
+            display: flex;
+            gap: 35px;
+            flex-wrap: wrap;
         }
 
-        /* Image Card */
+        .img-card, .info-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 22px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.07);
+        }
+
         .img-card {
-          width: 320px;
-          height: 300px;
-          border: 2px solid #32cd32;
-          border-radius: 10px;
-          background: #f0f8ff;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          flex-direction: column;
-          box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+            flex: 1;
+            min-width: 330px;
+            text-align: center;
         }
 
-        .img-card p {
-          color: #2e8b57;
-          font-size: 14px;
+        .placeholder {
+            padding: 40px 10px;
+            color: var(--green);
         }
 
-        /* Product Details Right Box */
         .info-card {
-          flex: 1;
-          border: 2px solid #32cd32;
-          padding: 20px;
-          border-radius: 10px;
-          background: #f0f8ff;
-          box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+            flex: 1.2;
+            min-width: 350px;
         }
 
         .price {
-          color: #dc143c; /* Red price */
-          font-size: 32px;
-          font-weight: bold;
+            font-size: 32px;
+            font-weight: bold;
+            color: #d6272f;
         }
 
+        .weight {
+            font-size: 18px;
+            margin-left: 3px;
+            color: var(--green);
+        }
+
+        /* SPECIFICATION LIST */
         .spec-list {
-          margin-top: 15px;
+            margin-top: 15px;
         }
 
         .spec-item {
-          padding: 10px 0;
-          border-bottom: 1px solid #2e8b57;
-          display: flex;
-          justify-content: space-between;
-          font-size: 16px;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border);
+            padding: 12px 0;
+            font-size: 16px;
         }
 
-        /* Buttons */
+        /* BUTTONS */
         .btn-main {
-          border: 2px solid #32cd32;
-          background: white;
-          color: #2e8b57;
-          padding: 12px;
-          width: 100%;
-          font-size: 16px;
-          border-radius: 6px;
-          cursor: pointer;
-          font-weight: bold;
-          margin-top: 15px;
-          transition: 0.3s ease;
+            width: 100%;
+            padding: 14px;
+            margin-top: 16px;
+            background: white;
+            color: var(--green);
+            border: 2px solid var(--green);
+            border-radius: 6px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s ease;
         }
 
         .btn-main:hover {
-          background: #32cd32;
-          color: white;
+            background: var(--green);
+            color: white;
         }
 
-        /* Description */
+        .btn-main a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* DESCRIPTION */
         .desc-box {
-          margin-top: 40px;
-          padding: 20px;
-          border: 2px solid #32cd32;
-          border-radius: 10px;
-          background: #f0f8ff;
+            background: #fff;
+            padding: 25px;
+            margin-top: 35px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.07);
+        }
+
+        .desc-box h3 {
+            margin-bottom: 12px;
+            color: var(--green);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .center-title {
+                font-size: 24px;
+            }
+
+            .price {
+                font-size: 26px;
+            }
         }
     </style>
 </head>
+
 <body>
 
-<!-- Navbar -->
 <div class="top-bar">
     <div class="title">Fresh Farm</div>
-    <a th:href="@{/FreshFarm/Category/{name}(name=${category})}" class="back-btn">← Back</a>
+    <a class="back-btn" th:href="@{/FreshFarm/Category/{name}(name=${category})}">← Back</a>
 </div>
 
 <div class="container" th:object="${single_product_details}">
 
-    <div class="center-title">Fresh Apples</div>
+    <div class="center-title" th:text="*{name}">Product Name</div>
 
-    <!-- Image + Details Layout -->
     <div class="details-box">
 
-        <!-- Image box -->
+        <!-- IMAGE SECTION -->
         <div class="img-card">
-            <h3 style="color:#2e8b57;">Image Placeholder</h3>
-            <p>Image of Fresh Apples will display here</p>
+            <div class="placeholder">
+                <h3>Image Coming Soon</h3>
+                <p>Product preview will appear here</p>
+            </div>
         </div>
 
-        <!-- Details box -->
+        <!-- PRODUCT INFO -->
         <div class="info-card">
             <p class="price">
-                ₹ <span th:text="*{cost}">4.99</span>
-                <span style="font-size:16px; color:#2e8b57;" th:text="*{itemweight}">/ 1kg</span>
+                ₹ <span th:text="*{cost}">120</span>
+                <span class="weight" th:text="*{itemweight}">/ 1kg</span>
             </p>
 
-
             <div class="spec-list">
-                <div class="spec-item"><strong>Name:</strong> <span th:text="*{name}">Fruits</span></div>
-                <div class="spec-item"><strong>Category:</strong> <span th:text="*{category}">Fruits</span></div>
-                <div class="spec-item"><strong>Brand:</strong> <span th:text="*{brand}">Local Orchard</span></div>
-                <div class="spec-item"><strong>Net Weight:</strong> <span th:text="*{itemweight}">1 kg</span></div>
+                <div class="spec-item"><strong>Name:</strong> <span th:text="*{name}"></span></div>
+                <div class="spec-item"><strong>Category:</strong> <span th:text="*{category}"></span></div>
+                <div class="spec-item"><strong>Brand:</strong> <span th:text="*{brand}"></span></div>
+                <div class="spec-item"><strong>Net Weight:</strong> <span th:text="*{itemweight}"></span></div>
             </div>
 
-            <button class="btn-main">Add to Cart</button>
-            <button class="btn-main">Buy Now</button>
+            <button class="btn-main">
+                <a th:href="@{/Cart/Particular/{id}(id=*{id})}">Add to Cart</a>
+            </button>
 
+            <button class="btn-main">Buy Now</button>
         </div>
     </div>
 
-    <!-- Description -->
+    <!-- DESCRIPTION -->
     <div class="desc-box">
-        <h3 style="color:#2e8b57; margin-bottom:10px;" >Product Description</h3>
-        <p style="color:#2e8b57;" th:text="*{description}" >
-            These Fresh Apples are sourced from quality local orchards. Rich in nutrients, deliciously crisp,
-            and perfect for snacks, juices, or baking recipes. Freshly harvested and naturally sweet.
+        <h3>Description</h3>
+        <p th:text="*{description}">
+            Product description goes here...
         </p>
     </div>
 

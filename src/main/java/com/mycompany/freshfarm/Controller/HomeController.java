@@ -50,7 +50,6 @@ public class HomeController {
         model.addAttribute("single_product_details",m);
         model.addAttribute("category",category);
         return "ProductDetails";
-
     }
 
 }
