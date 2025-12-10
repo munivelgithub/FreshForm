@@ -224,7 +224,7 @@
 
 
     <div class="product-grid-wrapper">
-        <div class="product-grid">
+        <div class="product-grid" >
             <th:block th:each="product:${products}">
                 <div class="product-card">
                     <div class="img-box">
@@ -234,7 +234,9 @@
                     <div class="info-line price" th:text="${product.brand}">Brand..</div>
                     <div class="info-line" th:text="${product.itemweight}">1KG</div>
                     <div class="info-line" th:text="${product.cost}">1KG</div>
-                    <button class="view-btn">View Details</button>
+                    <a th:href="@{/FreshFarm/ProductDetails/{id}(id=${product.id})}" style="text-decoration: none;">
+                        <button class="view-btn">View Details</button>
+                    </a>
                 </div>
             </th:block>
         </div>

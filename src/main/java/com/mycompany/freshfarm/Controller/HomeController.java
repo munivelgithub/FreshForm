@@ -43,4 +43,14 @@ public class HomeController {
         return "Display"; // reload same page
     }
 
+    @GetMapping("/ProductDetails/{id}")
+    public String one(org.springframework.ui.Model model,@PathVariable long id){
+        Model m=service.getProduct(id);
+        String category=m.getCategory();
+        model.addAttribute("single_product_details",m);
+        model.addAttribute("category",category);
+        return "ProductDetails";
+
+    }
+
 }

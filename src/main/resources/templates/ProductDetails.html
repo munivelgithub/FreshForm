@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en"
+xmlns:th="http://www.thymleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Fresh Apples - Product Details</title>
+
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          background: #ffffff;
+          margin: 0;
+          padding: 0;
+          color: #2e8b57;
+        }
+
+        /* Navbar */
+        .top-bar {
+          background: #000000;
+          color: #2e8b57;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 15px 20px;
+        }
+
+        .title {
+          font-size: 24px;
+          font-weight: bold;
+          color: #2e8b57;
+        }
+
+        .back-btn {
+          border: 2px solid #2e8b57;
+          padding: 6px 18px;
+          text-decoration: none;
+          color: #2e8b57;
+          border-radius: 6px;
+          font-size: 14px;
+          transition: 0.3s ease;
+        }
+
+        .back-btn:hover {
+          color: #32cd32;
+          background: none;
+        }
+
+        /* Page container */
+        .container {
+          padding: 25px;
+          max-width: 1000px;
+          margin: auto;
+        }
+
+        .center-title {
+          text-align: center;
+          font-size: 26px;
+          margin-bottom: 20px;
+          font-weight: bold;
+          color: #228b22;
+        }
+
+        /* Layout: Left Image + Right Details */
+        .details-box {
+          display: flex;
+          gap: 30px;
+          margin-top: 30px;
+          flex-wrap: wrap;
+        }
+
+        /* Image Card */
+        .img-card {
+          width: 320px;
+          height: 300px;
+          border: 2px solid #32cd32;
+          border-radius: 10px;
+          background: #f0f8ff;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+          box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+        }
+
+        .img-card p {
+          color: #2e8b57;
+          font-size: 14px;
+        }
+
+        /* Product Details Right Box */
+        .info-card {
+          flex: 1;
+          border: 2px solid #32cd32;
+          padding: 20px;
+          border-radius: 10px;
+          background: #f0f8ff;
+          box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+        }
+
+        .price {
+          color: #dc143c; /* Red price */
+          font-size: 32px;
+          font-weight: bold;
+        }
+
+        .spec-list {
+          margin-top: 15px;
+        }
+
+        .spec-item {
+          padding: 10px 0;
+          border-bottom: 1px solid #2e8b57;
+          display: flex;
+          justify-content: space-between;
+          font-size: 16px;
+        }
+
+        /* Buttons */
+        .btn-main {
+          border: 2px solid #32cd32;
+          background: white;
+          color: #2e8b57;
+          padding: 12px;
+          width: 100%;
+          font-size: 16px;
+          border-radius: 6px;
+          cursor: pointer;
+          font-weight: bold;
+          margin-top: 15px;
+          transition: 0.3s ease;
+        }
+
+        .btn-main:hover {
+          background: #32cd32;
+          color: white;
+        }
+
+        /* Description */
+        .desc-box {
+          margin-top: 40px;
+          padding: 20px;
+          border: 2px solid #32cd32;
+          border-radius: 10px;
+          background: #f0f8ff;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="top-bar">
+    <div class="title">Fresh Farm</div>
+    <a th:href="@{/FreshFarm/Category/{name}(name=${category})}" class="back-btn">← Back</a>
+</div>
+
+<div class="container" th:object="${single_product_details}">
+
+    <div class="center-title">Fresh Apples</div>
+
+    <!-- Image + Details Layout -->
+    <div class="details-box">
+
+        <!-- Image box -->
+        <div class="img-card">
+            <h3 style="color:#2e8b57;">Image Placeholder</h3>
+            <p>Image of Fresh Apples will display here</p>
+        </div>
+
+        <!-- Details box -->
+        <div class="info-card">
+            <p class="price">
+                ₹ <span th:text="*{cost}">4.99</span>
+                <span style="font-size:16px; color:#2e8b57;" th:text="*{itemweight}">/ 1kg</span>
+            </p>
+
+
+            <div class="spec-list">
+                <div class="spec-item"><strong>Name:</strong> <span th:text="*{name}">Fruits</span></div>
+                <div class="spec-item"><strong>Category:</strong> <span th:text="*{category}">Fruits</span></div>
+                <div class="spec-item"><strong>Brand:</strong> <span th:text="*{brand}">Local Orchard</span></div>
+                <div class="spec-item"><strong>Net Weight:</strong> <span th:text="*{itemweight}">1 kg</span></div>
+            </div>
+
+            <button class="btn-main">Add to Cart</button>
+            <button class="btn-main">Buy Now</button>
+
+        </div>
+    </div>
+
+    <!-- Description -->
+    <div class="desc-box">
+        <h3 style="color:#2e8b57; margin-bottom:10px;" >Product Description</h3>
+        <p style="color:#2e8b57;" th:text="*{description}" >
+            These Fresh Apples are sourced from quality local orchards. Rich in nutrients, deliciously crisp,
+            and perfect for snacks, juices, or baking recipes. Freshly harvested and naturally sweet.
+        </p>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -20,4 +20,8 @@ public class Service {
     public List<Model> getCategoryProducts(String name) {
         return repository.findByCategory(name);
     }
+
+    public Model getProduct(long i) {
+        return  repository.findById(i).orElse(null);
+    }
 }
