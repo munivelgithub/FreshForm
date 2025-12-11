@@ -13,13 +13,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class Cart {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    private String name;
-    private String brand;
-    private String itemweight;
-    private String category;
-    private long cost;
-    private String description;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private long id;
+
+  private String name;
+  private String brand;
+  private String itemweight;
+  private String category;
+  private long cost;
+  private String description;
+  private long quantity = 0;
 }

@@ -1,217 +1,214 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fresh Farm Product Catalog</title>
 
     <style>
+      :root {
+        --green-dark: #228b22;
+        --green-light: #32cd32;
+        --nav-bg: #000;
+      }
 
-        :root {
-            --green-dark: #228b22;
-            --green-light: #32cd32;
-            --nav-bg: #000;
-        }
+      body {
+        font-family: "Poppins", sans-serif;
+        margin: 0;
+        background: white;
+        color: var(--green-dark);
+      }
 
-        body {
-            font-family: "Poppins", sans-serif;
-            margin: 0;
-            background: white;
-            color: var(--green-dark);
-        }
+      /* NAVBAR */
+      .top-bar {
+        background: var(--nav-bg);
+        padding: 15px 25px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
 
-        /* NAVBAR */
-        .top-bar {
-            background: var(--nav-bg);
-            padding: 15px 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+      .title {
+        color: var(--green-light);
+        font-size: 24px;
+        font-weight: bold;
+      }
 
-        .title {
-            color: var(--green-light);
-            font-size: 24px;
-            font-weight: bold;
-        }
+      .back-btn {
+        color: var(--green-light);
+        padding: 6px 16px;
+        border-radius: 20px;
+        border: 2px solid var(--green-light);
+        text-decoration: none;
+        transition: 0.3s;
+      }
 
-        .back-btn {
-            color: var(--green-light);
-            padding: 6px 16px;
-            border-radius: 20px;
-            border: 2px solid var(--green-light);
-            text-decoration: none;
-            transition: .3s;
-        }
+      .back-btn:hover {
+        background: var(--green-light);
+        color: black;
+      }
 
-        .back-btn:hover {
-            background: var(--green-light);
-            color: black;
-        }
+      /* MAIN CONTAINER */
+      .container {
+        padding: 25px;
+        max-width: 1200px;
+        margin: auto;
+      }
 
-        /* MAIN CONTAINER */
-        .container {
-            padding: 25px;
-            max-width: 1200px;
-            margin: auto;
-        }
+      .center-title {
+        text-align: center;
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 25px;
+      }
 
-        .center-title {
-            text-align: center;
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 25px;
-        }
+      /* SEARCH */
+      .search-box {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 35px;
+      }
 
-        /* SEARCH */
-        .search-box {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 35px;
-        }
+      .search-box input {
+        width: 320px;
+        padding: 12px;
+        border: 2px solid var(--green-light);
+        border-radius: 8px 0 0 8px;
+      }
 
-        .search-box input {
-            width: 320px;
-            padding: 12px;
-            border: 2px solid var(--green-light);
-            border-radius: 8px 0 0 8px;
-        }
+      .search-box button {
+        padding: 12px 20px;
+        background: var(--green-light);
+        color: white;
+        border: none;
+        border-radius: 0 8px 8px 0;
+        cursor: pointer;
+        font-weight: bold;
+      }
 
-        .search-box button {
-            padding: 12px 20px;
-            background: var(--green-light);
-            color: white;
-            border: none;
-            border-radius: 0 8px 8px 0;
-            cursor: pointer;
-            font-weight: bold;
-        }
+      /* GRID — 4 CARDS */
+      .product-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 25px;
+      }
 
-        /* GRID — 4 CARDS */
+      /* CARD */
+      .product-card {
+        width: 200px;
+        background: white;
+        border-radius: 14px;
+        padding: 18px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+        transition: 0.3s ease;
+      }
+
+      .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
+      }
+
+      .img-box {
+        height: 130px;
+        width: 100%;
+        border-radius: 10px;
+        overflow: hidden;
+        margin-bottom: 12px;
+        border: 1px solid #d8ffd8;
+      }
+
+      .info-text {
+        margin: 6px 0;
+        font-size: 0.92rem;
+      }
+
+      .price {
+        font-weight: 800;
+        font-size: 1.2rem;
+        margin: 10px 0;
+      }
+
+      /* BUTTON */
+      .view-btn {
+        width: 100%;
+        padding: 10px;
+        border: 2px solid var(--green-light);
+        border-radius: 18px;
+        background: white;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      .view-btn:hover {
+        background: var(--green-light);
+        color: white;
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 850px) {
         .product-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 25px;
+          grid-template-columns: repeat(2, 1fr);
         }
+      }
 
-        /* CARD */
-        .product-card {
-            width: 200px;
-            background: white;
-            border-radius: 14px;
-            padding: 18px;
-            box-shadow: 0 6px 18px rgba(0,0,0,0.12);
-            transition: 0.3s ease;
+      @media (max-width: 600px) {
+        .product-grid {
+          grid-template-columns: 1fr;
         }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.18);
-        }
-
-        .img-box {
-            height: 130px;
-            width: 100%;
-            border-radius: 10px;
-            overflow: hidden;
-            margin-bottom: 12px;
-            border: 1px solid #d8ffd8;
-        }
-
-        .info-text {
-            margin: 6px 0;
-            font-size: 0.92rem;
-        }
-
-        .price {
-            font-weight: 800;
-            font-size: 1.2rem;
-            margin: 10px 0;
-        }
-
-        /* BUTTON */
-        .view-btn {
-            width: 100%;
-            padding: 10px;
-            border: 2px solid var(--green-light);
-            border-radius: 18px;
-            background: white;
-            font-weight: bold;
-            cursor: pointer;
-            transition: .3s;
-        }
-
-        .view-btn:hover {
-            background: var(--green-light);
-            color: white;
-        }
-
-        /* RESPONSIVE */
-        @media(max-width: 850px) {
-            .product-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media(max-width: 600px) {
-            .product-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
+      }
     </style>
-
-</head>
-<body>
-
-<!-- NAV -->
-<div class="top-bar">
-    <div class="title">Fresh Farm</div>
-    <a th:href="@{/FreshFarm/Category}" class="back-btn">← Categories</a>
-</div>
-
-<!-- MAIN CONTENT -->
-<div class="container">
-
-    <div class="center-title">Fresh Farm Product Catalog</div>
-
-    <form th:action="@{/FreshFarm/Search/{category}(category=${category})}" class="search-box" method="get">
-        <input type="text" name="keyword" placeholder="🔍 Search products...">
-        <button type="submit">Search</button>
-    </form>
-
-    <div class="product-grid">
-
-        <th:block th:each="p : ${products}">
-            <div class="product-card">
-
-                <div class="img-box">
-                    <!-- <img src=""> -->
-                </div>
-
-                <div class="info-text"><b>Product :</b> <span th:text="${p.name}">Chilli</span></div>
-
-                <div class="info-text"><b>Brand :</b> <span th:text="${p.brand}">Aachi</span></div>
-
-                <div class="info-text">
-                    <b>Weight :</b>
-                    <span th:text="${p.itemweight} + ' KG'">1 KG</span>
-                </div>
-
-                <div class="price">
-                    <span th:text="'₹ ' + ${p.cost}">₹120</span>
-                </div>
-
-                <a th:href="@{/FreshFarm/ProductDetails/{id}(id=${p.id})}">
-                    <button class="view-btn">View Details</button>
-                </a>
-
-            </div>
-        </th:block>
-
+  </head>
+  <body>
+    <div class="top-bar">
+      <div class="title">Fresh Farm</div>
+      <a th:href="@{/FreshFarm/Category}" class="back-btn">← Categories</a>
     </div>
 
-</div>
+    <div class="container">
+      <div class="center-title">Fresh Farm Product Catalog</div>
 
-</body>
+      <form
+        th:action="@{/FreshFarm/Search/{category}(category=${category})}"
+        class="search-box"
+        method="get"
+      >
+        <input type="text" name="keyword" placeholder="🔍 Search products..." />
+        <button type="submit">Search</button>
+      </form>
+
+      <div class="product-grid">
+        <th:block th:each="p : ${products}">
+          <div class="product-card">
+            <div class="img-box"></div>
+
+            <div class="info-text">
+              <b>Product :</b> <span th:text="${p.name}">Chilli</span>
+            </div>
+
+            <div class="info-text">
+              <b>Brand :</b> <span th:text="${p.brand}">Aachi</span>
+            </div>
+
+            <div class="info-text">
+              <b>Weight :</b>
+              <span th:text="${p.itemweight} + ' KG'">1 KG</span>
+            </div>
+
+            <div class="info-text">
+              <b>Quantity :</b>
+              <span th:text="${p.quantity != 0 ? p.quantity : 'N/A'}"></span>
+            </div>
+            <div class="price">
+              <span th:text="'₹ ' + ${p.cost}">₹120</span>
+            </div>
+
+            <a th:href="@{/FreshFarm/ProductDetails/{id}(id=${p.id})}">
+              <button class="view-btn">View Details</button>
+            </a>
+          </div>
+        </th:block>
+      </div>
+    </div>
+  </body>
 </html>
