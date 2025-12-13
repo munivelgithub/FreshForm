@@ -1,11 +1,13 @@
 package com.mycompany.freshfarm.Controller;
 
+import com.mycompany.freshfarm.Model.Contact;
 import com.mycompany.freshfarm.Model.Model;
 import com.mycompany.freshfarm.Service.Service;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/FreshFarm")
@@ -51,5 +53,21 @@ public class HomeController {
     model.addAttribute("single_product_details", m);
     model.addAttribute("category", category);
     return "ProductDetails";
+  }
+
+  @GetMapping("/Contact")
+  public String contact(org.springframework.ui.Model model) {
+    Contact contact = new Contact();
+    model.addAttribute("contact", contact);
+    return "Contact";
+  }
+
+  @PostMapping("/ContactSave")
+  public String save(
+      @ModelAttribute("contact") Contact contact, RedirectAttributes redirectAttributes) {
+    service.saveContact(contact);
+    redirectAttributes.addFlashAttribute(
+        "successMessage", "Your message has been sent successfully!");
+    return "redirect:/FreshFarm/Contact";
   }
 }

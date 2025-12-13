@@ -29,13 +29,14 @@ public class CartService {
   public List<Cart> getall() {
     return repository.findAll();
   }
-  public long countofcart(){
+
+  public long countofcart() {
     return repository.count();
   }
 
   public void updateQuantity(long productId, String action) {
 
-    Cart cartItem=repository.findById(productId).orElse(null);
+    Cart cartItem = repository.findById(productId).orElse(null);
     if (cartItem != null) {
       long currentQuantity = cartItem.getQuantity();
       if ("increase".equalsIgnoreCase(action)) {
@@ -54,12 +55,15 @@ public class CartService {
       }
 
       // 4. Save the updated item back to the database
-      repository.save(cartItem);}
+      repository.save(cartItem);
+    }
   }
-  public void delete(long id){
+
+  public void delete(long id) {
     repository.deleteById(id);
   }
-// Inside com.mycompany.freshfarm.Service.CartService
+
+  // Inside com.mycompany.freshfarm.Service.CartService
 
   public long grandtotal() {
     List<Cart> total = getall(); // Assuming this is defined/implemented in the service

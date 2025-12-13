@@ -20,7 +20,7 @@ public class CartController {
     // 2. Fetch the total count of distinct products (total rows in the 'cart' table)
     long countOfProducts = cartService.countofcart();
     long calculatedGrandTotal = cartService.grandtotal();
-    model.addAttribute("grand_total",calculatedGrandTotal);
+    model.addAttribute("grand_total", calculatedGrandTotal);
     // 3. Add the count to the model under a specific name (e.g., "productCount")
     model.addAttribute("productCount", countOfProducts);
     return "Cart";
@@ -31,10 +31,10 @@ public class CartController {
     cartService.addProducttocart(id);
     return "redirect:/Carts/Display";
   }
+
   @PostMapping("/update")
   public String updateCart(
-          @RequestParam("productId") long productId,
-          @RequestParam("action") String action) {
+      @RequestParam("productId") long productId, @RequestParam("action") String action) {
 
     // Delegate the actual quantity update logic to the service layer
     cartService.updateQuantity(productId, action); // Logic remains the same
@@ -42,10 +42,10 @@ public class CartController {
     // Redirect back to the cart display page to show the updated cart
     return "redirect:/Carts/Display";
   }
-@PostMapping("/delete")
-  public String delete(@RequestParam("productId") long id){
+
+  @PostMapping("/delete")
+  public String delete(@RequestParam("productId") long id) {
     cartService.delete(id);
     return "redirect:/Carts/Display";
-}
-
+  }
 }

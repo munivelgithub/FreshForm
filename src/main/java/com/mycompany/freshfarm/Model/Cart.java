@@ -26,9 +26,9 @@ public class Cart {
   private long quantity = 0;
 
   // Calculated field for Thymeleaf usage
-  // Note: Lombok handles getters for fields, but you define custom getters for calculated properties.
+  // Note: Lombok handles getters for fields, but you define custom getters for calculated
+  // properties.
   public long getTotalCost() {
     return this.cost * this.quantity;
   }
-
 }
