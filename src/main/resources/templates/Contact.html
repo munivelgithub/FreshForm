@@ -1,561 +1,428 @@
 <!DOCTYPE html>
-
 <html
-  lang="en"
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:sec="http://www.w3.org/1999/xhtml"
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.w3.org/1999/xhtml"
 >
-  <head>
-    <meta charset="UTF-8" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us | Fresh Farm</title>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+  />
+  <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+  />
 
-    <title>Contact Us | Fresh Farm</title>
+  <style>
+    /* --- Fresh Farm Custom Color Variables --- */
+    :root {
+      --body-bg: #ffffff;
+      --body-text: #000000;
+      --nav-bg: #000000;
+      --nav-text: #ffffff;
+      --brand-color: #2eff2e;
+      --hover-underline-color: #3cb371;
+      --nav-height: 75px;
+      --green-btn: #3cb371; /* Main action button color */
+      --subtle-grey: #e0e0e0;
 
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
+      /* Contact Page specific overrides based on Fresh Farm theme */
+      --card-bg: rgba(240, 230, 218, 0.9); /* Lighter card for a white background */
+      --card-border: rgba(0, 0, 0, 0.1);
+      --input-bg: rgba(255, 255, 255, 0.8);
+      --input-text: #000000;
+    }
 
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-    />
+    body {
+      background-color: var(--body-bg);
+      color: var(--body-text);
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding-top: var(--nav-height);
+      position: relative;
+    }
 
-    <style>
-      /* --- Fresh Farm Custom Color Variables --- */
+    /* --- Navbar Styling (From Home Page) --- */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--nav-height);
+      z-index: 1030;
+      background-color: var(--nav-bg) !important;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      padding: 1rem 15px;
+    }
 
-      :root {
-        --body-bg: #ffffff;
+    .navbar .container {
+      justify-content: space-between !important;
+      max-width: 100%;
+    }
 
-        --body-text: #000000;
+    .navbar-brand {
+      color: var(--brand-color) !important;
+      font-weight: 700 !important;
+      font-size: 1.8rem;
+      margin-right: 3rem;
+    }
 
-        --nav-bg: #000000;
+    .nav-link {
+      color: var(--nav-text) !important;
+      font-weight: 500 !important;
+      padding: 0.5rem 0.75rem !important;
+      position: relative;
+      text-decoration: none;
+    }
 
-        --nav-text: #ffffff;
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 3px;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--hover-underline-color);
+      transition: width 0.3s ease-out;
+    }
 
-        --brand-color: #2eff2e;
+    .nav-link:hover::after {
+      width: 70%;
+    }
 
-        --hover-underline-color: #3cb371;
+    /* --- Centered Image Styling (Behind content) --- */
+    .centered-image {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      /* Added dimming filter to make text/card readable */
+      filter: brightness(0.95);
+    }
 
-        --nav-height: 75px;
+    /* --- Contact Page Content Styling --- */
+    .content-section {
+      flex: 1;
+      min-height: calc(100vh - var(--nav-height));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      z-index: 1;
+    }
 
-        --green-btn: #3cb371; /* Main action button color */
+    .contact-card {
+      /* Adjusted background for white body background */
+      background-color: #ffffff; /* Use pure white for contrast on subtle image background */
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 15px; /* Slightly less rounded */
+      padding: 40px;
+      width: 100%;
+      max-width: 700px;
+      /* Updated box shadow for a cleaner, lifted look */
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      color: var(--body-text); /* Ensure text is black/body-text */
+    }
 
-        --subtle-grey: #e0e0e0;
+    /* Input Styling */
+    .form-label {
+      font-weight: 500;
+      margin-bottom: 5px;
+      letter-spacing: normal;
+      opacity: 1;
+      color: var(--body-text);
+    }
 
-        /* Contact Page specific overrides based on Fresh Farm theme */
+    .form-control {
+      background-color: var(--input-bg);
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      color: var(--input-text);
+      border-radius: 8px;
+      padding: 10px;
+    }
 
-        --card-bg: rgba(
-          240,
-          230,
-          218,
-          0.9
-        ); /* Lighter card for a white background */
+    .form-control:focus {
+      background-color: #ffffff;
+      color: var(--input-text);
+      /* Green Accent on Focus */
+      border-color: var(--green-btn);
+      box-shadow: 0 0 0 0.25rem rgba(60, 179, 113, 0.25);
+    }
 
-        --card-border: rgba(0, 0, 0, 0.1);
+    .form-control::placeholder {
+      color: rgba(0, 0, 0, 0.4);
+    }
 
-        --input-bg: rgba(255, 255, 255, 0.8);
+    /* Button Styling */
+    .btn-send {
+      background-color: var(--green-btn); /* Green Accent */
+      color: var(--nav-text); /* White Text */
+      font-weight: 600;
+      /* UPDATED: Oval Border */
+      border-radius: 30px;
+      padding: 12px 30px;
+      width: 100%;
+      border: none;
+      transition: 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 1.1rem;
+    }
 
-        --input-text: #000000;
+    .btn-send:hover {
+      background-color: #2e8b57;
+      transform: translateY(-2px);
+    }
+
+    .contact-header h2 {
+      font-weight: 700;
+      margin-bottom: 5px;
+      color: var(--body-text);
+    }
+
+    .contact-header p {
+      opacity: 0.8;
+      margin-bottom: 30px;
+      color: var(--body-text);
+    }
+
+    /* --- MODAL STYLES (Themed for Fresh Farm) --- */
+    .modal-content {
+      background-color: #f7f7f7; /* Light background for the modal */
+      color: var(--body-text);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 15px;
+    }
+
+    .modal-header {
+      border-bottom: 1px solid var(--subtle-grey);
+    }
+
+    .modal-footer {
+      border-top: 1px solid var(--subtle-grey);
+    }
+
+    .btn-close {
+      filter: none;
+    } /* Black X icon on a light background */
+
+    .btn-modal-ok {
+      background-color: var(--green-btn); /* Green Accent */
+      color: var(--nav-text);
+      font-weight: bold;
+      border-radius: 5px;
+      padding: 8px 25px;
+      border: none;
+    }
+
+    .btn-modal-ok:hover {
+      background-color: #2e8b57;
+    }
+
+    /* --- Back to Home Button Styles from provided CSS --- */
+    .back-btn {
+      color: #32cd32; /* Text green */
+      padding: 6px 16px;
+      border-radius: 20px;
+      border: 2px solid #32cd32; /* Border green */
+      text-decoration: none;
+      background: transparent; /* No background */
+      transition: 0.3s ease;
+      font-weight: 600;
+    }
+
+    .back-btn:hover {
+      background: #32cd32; /* Green background */
+      color: black; /* Black text on hover */
+    }
+
+    /* End Back to Home Button Styles */
+
+    /* Responsive Adjustments */
+    @media (max-width: 991.98px) {
+      .navbar-nav {
+        align-items: flex-start;
       }
 
-      body {
-        background-color: var(--body-bg);
-
-        color: var(--body-text);
-
-        font-family: Arial, sans-serif; /* Changed from Fira Code to match home page */
-
-        min-height: 100vh;
-
-        display: flex;
-
-        flex-direction: column;
-
-        padding-top: var(--nav-height);
-
-        position: relative;
-      }
-
-      /* --- Navbar Styling (From Home Page) --- */
-
-      .navbar {
-        position: fixed;
-
-        top: 0;
-
-        left: 0;
-
-        right: 0;
-
-        height: var(--nav-height);
-
-        z-index: 1030;
-
-        background-color: var(--nav-bg) !important;
-
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-
-        padding: 1rem 15px;
-      }
-
-      .navbar .container {
-        justify-content: space-between !important;
-
-        max-width: 100%;
-      }
-
-      .navbar-brand {
-        color: var(--brand-color) !important;
-
-        font-weight: 700 !important;
-
-        font-size: 1.8rem;
-
-        margin-right: 3rem;
-      }
-
-      .nav-link {
-        color: var(--nav-text) !important;
-
-        font-weight: 500 !important;
-
-        padding: 0.5rem 0.75rem !important;
-
-        position: relative;
-
-        text-decoration: none;
-      }
-
-      .nav-link::after {
-        content: "";
-
-        position: absolute;
-
-        width: 0;
-
-        height: 3px;
-
-        bottom: 0;
-
-        left: 50%;
-
-        transform: translateX(-50%);
-
-        background-color: var(--hover-underline-color);
-
-        transition: width 0.3s ease-out;
-      }
-
-      .nav-link:hover::after {
-        width: 70%;
-      }
-
-      /* --- Centered Image Styling (Behind content) --- */
-
-      .centered-image {
-        position: fixed;
-
-        top: 0;
-
-        left: 0;
-
-        width: 100%;
-
-        height: 100%;
-
-        object-fit: cover;
-
-        z-index: -1;
-
-        /* Added dimming filter to make text/card readable */
-
-        filter: brightness(0.95);
-      }
-
-      /* --- Contact Page Content Styling --- */
-
-      .content-section {
-        flex: 1;
-
-        min-height: calc(100vh - var(--nav-height));
-
-        display: flex;
-
-        align-items: center;
-
-        justify-content: center;
-
-        padding: 40px 20px;
-
-        z-index: 1;
-      }
-
-      .contact-card {
-        /* Adjusted background for white body background */
-
-        background-color: #ffffff; /* Use pure white for contrast on subtle image background */
-
-        border: 1px solid rgba(0, 0, 0, 0.1);
-
-        border-radius: 15px; /* Slightly less rounded */
-
-        padding: 40px;
-
-        width: 100%;
-
-        max-width: 700px;
-
-        /* Updated box shadow for a cleaner, lifted look */
-
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-
-        color: var(--body-text); /* Ensure text is black/body-text */
-      }
-
-      /* Input Styling */
-
-      .form-label {
-        font-weight: 500;
-
-        margin-bottom: 5px;
-
-        letter-spacing: normal;
-
-        opacity: 1;
-
-        color: var(--body-text);
-      }
-
-      .form-control {
-        background-color: var(--input-bg);
-
-        border: 1px solid rgba(0, 0, 0, 0.2);
-
-        color: var(--input-text);
-
-        border-radius: 8px;
-
-        padding: 10px;
-      }
-
-      .form-control:focus {
-        background-color: #ffffff;
-
-        color: var(--input-text);
-
-        /* Green Accent on Focus */
-
-        border-color: var(--green-btn);
-
-        box-shadow: 0 0 0 0.25rem rgba(60, 179, 113, 0.25);
-      }
-
-      .form-control::placeholder {
-        color: rgba(0, 0, 0, 0.4);
-      }
-
-      /* Button Styling */
-
-      .btn-send {
-        background-color: var(--green-btn); /* Green Accent */
-
-        color: var(--nav-text); /* White Text */
-
-        font-weight: 600; /* Adjusted from bold to 600 */
-
-        border-radius: 5px; /* Square buttons like home page */
-
-        padding: 12px 30px;
-
-        width: 100%;
-
-        border: none;
-
-        transition: 0.3s;
-
-        display: flex;
-
-        align-items: center;
-
-        justify-content: center;
-
-        gap: 10px;
-
-        font-size: 1.1rem;
-      }
-
-      .btn-send:hover {
-        background-color: #2e8b57;
-
-        transform: translateY(-2px);
-      }
-
-      .contact-header h2 {
-        font-weight: 700;
-
-        margin-bottom: 5px;
-
-        color: var(--body-text);
-      }
-
-      .contact-header p {
-        opacity: 0.8;
-
-        margin-bottom: 30px;
-
-        color: var(--body-text);
-      }
-
-      /* --- MODAL STYLES (Themed for Fresh Farm) --- */
-
-      .modal-content {
-        background-color: #f7f7f7; /* Light background for the modal */
-
-        color: var(--body-text);
-
-        border: 1px solid rgba(0, 0, 0, 0.1);
-
-        border-radius: 15px;
-      }
-
-      .modal-header {
-        border-bottom: 1px solid var(--subtle-grey);
-      }
-
-      .modal-footer {
-        border-top: 1px solid var(--subtle-grey);
-      }
-
-      .btn-close {
-        filter: none;
-      } /* Black X icon on a light background */
-
-      .btn-modal-ok {
-        background-color: var(--green-btn); /* Green Accent */
-
-        color: var(--nav-text);
-
-        font-weight: bold;
-
-        border-radius: 5px;
-
-        padding: 8px 25px;
-
-        border: none;
-      }
-
-      .btn-modal-ok:hover {
-        background-color: #2e8b57;
-      }
-
-      /* --- Back to Home Button Styles from provided CSS --- */
-
+      /* On smaller screens, make the button look like a link */
       .back-btn {
-        color: #32cd32; /* Text green */
-
-        padding: 6px 16px;
-
-        border-radius: 20px;
-
-        border: 2px solid #32cd32; /* Border green */
-
-        text-decoration: none;
-
-        background: transparent; /* No background */
-
-        transition: 0.3s ease;
-
-        font-weight: 600;
+        border: none;
+        padding: 0;
+        margin: 5px 0; /* Add some spacing in the collapsed menu */
+        color: var(--nav-text) !important; /* White text on black navbar */
       }
 
       .back-btn:hover {
-        background: #32cd32; /* Green background */
-
-        color: black; /* Black text on hover */
+        background: transparent;
+        color: var(--hover-underline-color) !important;
       }
+    }
+  </style>
+</head>
 
-      /* End Back to Home Button Styles */
+<body>
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand" th:href="@{/FreshFarm/Home}">Fresh Farm</a>
 
-      /* Responsive Adjustments */
+    <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon" style="filter: invert(1)"></span>
+    </button>
 
-      @media (max-width: 991.98px) {
-        .navbar-nav {
-          align-items: flex-start;
-        }
+    <div
+            class="collapse navbar-collapse justify-content-end"
+            id="navbarNav"
+    >
+      <a class="back-btn" th:href="@{/FreshFarm/Home}">
+        ← Back to Home Page
+      </a>
+    </div>
+  </div>
+</nav>
 
-        /* On smaller screens, make the button look like a link */
+<section class="content-section">
+  <div class="contact-card">
+    <div class="contact-header text-center">
+      <h2 class="display-6">Get in Touch</h2>
 
-        .back-btn {
-          border: none;
-
-          padding: 0;
-
-          margin: 5px 0; /* Add some spacing in the collapsed menu */
-
-          color: var(--nav-text) !important; /* White text on black navbar */
-        }
-
-        .back-btn:hover {
-          background: transparent;
-
-          color: var(--hover-underline-color) !important;
-        }
-      }
-    </style>
-  </head>
-
-  <body>
-    <nav class="navbar navbar-expand-lg">
-      <div class="container">
-        <a class="navbar-brand" th:href="@{/FreshFarm/Home}">Fresh Farm</a>
-
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon" style="filter: invert(1)"></span>
-        </button>
-
-        <div
-          class="collapse navbar-collapse justify-content-end"
-          id="navbarNav"
-        >
-          <a class="back-btn" th:href="@{/FreshFarm/Home}">
-            ← Back to Home Page
-          </a>
-        </div>
-      </div>
-    </nav>
-
-    <section class="content-section">
-      <div class="contact-card">
-        <div class="contact-header text-center">
-          <h2 class="display-6">Get in Touch</h2>
-
-          <p>Have a question, need assistance, or want to provide feedback?</p>
-        </div>
-
-        <form
-          th:action="@{/FreshFarm/ContactSave}"
-          th:object="${contact}"
-          method="post"
-        >
-          <div class="row">
-            <div class="col-md-6 mb-3">
-              <label class="form-label">Your Name</label>
-
-              <input
-                type="text"
-                class="form-control"
-                th:field="*{name}"
-                placeholder="John Doe"
-                required
-              />
-            </div>
-
-            <div class="col-md-6 mb-3">
-              <label class="form-label">Mobile Number</label>
-
-              <input
-                type="tel"
-                class="form-control"
-                th:field="*{mobileNumber}"
-                placeholder="+91 98765 43210"
-              />
-            </div>
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">Email Address</label>
-
-            <input
-              type="email"
-              class="form-control"
-              th:field="*{email}"
-              placeholder="name@example.com"
-              required
-            />
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">Subject</label>
-
-            <input
-              type="text"
-              class="form-control"
-              th:field="*{subject}"
-              placeholder="Product Inquiry / Feedback"
-              required
-            />
-          </div>
-
-          <div class="mb-4">
-            <label class="form-label">Message</label>
-
-            <textarea
-              class="form-control"
-              th:field="*{message}"
-              rows="5"
-              placeholder="Write your message here..."
-              required
-            ></textarea>
-          </div>
-
-          <button type="submit" class="btn-send">
-            <i class="bi bi-send-fill"></i> Send Message
-          </button>
-        </form>
-      </div>
-    </section>
-
-    <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title fw-bold">
-              <i class="bi bi-check-circle-fill text-success me-2"></i> Success
-            </h5>
-
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-
-          <div class="modal-body text-center py-4">
-            <p class="fs-5 mb-0" th:text="${successMessage}">Default Message</p>
-          </div>
-
-          <div class="modal-footer justify-content-center">
-            <button type="button" class="btn-modal-ok" data-bs-dismiss="modal">
-              Close
-            </button>
-          </div>
-        </div>
-      </div>
+      <p>Have a question, need assistance, or want to provide feedback?</p>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <form
+            th:action="@{/FreshFarm/ContactSave}"
+            th:object="${contact}"
+            method="post"
+    >
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Your Name</label>
 
-    <script th:if="${successMessage}">
-      // This script only exists if the Controller sent a successMessage
+          <input
+                  type="text"
+                  class="form-control"
+                  th:field="*{name}"
+                  placeholder="John Doe"
+                  required
+          />
+        </div>
 
-      document.addEventListener("DOMContentLoaded", function () {
-        var myModal = new bootstrap.Modal(
-          document.getElementById("successModal")
-        );
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Mobile Number</label>
 
-        myModal.show();
-      });
-    </script>
-  </body>
+          <input
+                  type="tel"
+                  class="form-control"
+                  th:field="*{mobileNumber}"
+                  placeholder="+91 98765 43210"
+          />
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Email Address</label>
+
+        <input
+                type="email"
+                class="form-control"
+                th:field="*{email}"
+                placeholder="name@example.com"
+                required
+        />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Subject</label>
+
+        <input
+                type="text"
+                class="form-control"
+                th:field="*{subject}"
+                placeholder="Product Inquiry / Feedback"
+                required
+        />
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label">Message</label>
+
+        <textarea
+                class="form-control"
+                th:field="*{message}"
+                rows="5"
+                placeholder="Write your message here..."
+                required
+        ></textarea>
+      </div>
+
+      <button type="submit" class="btn-send">
+        <i class="bi bi-send-fill"></i> Send Message
+      </button>
+    </form>
+  </div>
+</section>
+
+<div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold">
+          <i class="bi bi-check-circle-fill text-success me-2"></i> Success
+        </h5>
+
+        <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+        ></button>
+      </div>
+
+      <div class="modal-body text-center py-4">
+        <p class="fs-5 mb-0" th:text="${successMessage}">Default Message</p>
+      </div>
+
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn-modal-ok" data-bs-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script th:if="${successMessage}">
+  // This script only exists if the Controller sent a successMessage
+
+  document.addEventListener("DOMContentLoaded", function () {
+    var myModal = new bootstrap.Modal(
+      document.getElementById("successModal")
+    );
+
+    myModal.show();
+  });
+</script>
+</body>
 </html>

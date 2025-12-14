@@ -70,4 +70,13 @@ public class HomeController {
         "successMessage", "Your message has been sent successfully!");
     return "redirect:/FreshFarm/Contact";
   }
+
+  @GetMapping("/AboutUs")
+  public String about(){
+    return "About";
+  }
+  @GetMapping("/Service")
+  public String service(){
+    return "Service";
+  }
 }

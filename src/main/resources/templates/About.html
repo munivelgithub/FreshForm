@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Us | Fresh Farm</title>
+
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+    />
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    <style>
+        /* Custom Color Variables based on Product Details page */
+        :root {
+          --green: #2e8b57;
+          --lightgreen: #32cd32;
+          --bg: #f5f5f5; /* Light off-white/greyish background */
+          --border: #dcdcdc;
+          --text: #1a1a1a;
+          --hero-bg: #1a6032; /* Darker green for a strong hero section */
+          --top-bar-height: 60px; /* NEW: Define fixed height for top bar */
+        }
+
+        body {
+          margin: 0;
+          padding: var(--top-bar-height) 0 0 0; /* NEW: Add padding-top to body */
+          font-family: Arial, sans-serif;
+          background: var(--bg);
+          color: var(--text);
+        }
+
+        /* --- TOP BAR (Reused from Product Details) --- */
+        .top-bar {
+          background: #000;
+          padding: 0 20px; /* Reduced padding here, height is controlled by min-height/padding elsewhere */
+          height: var(--top-bar-height); /* NEW: Set fixed height */
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+
+          /* NEW: Make it fixed and full width */
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          z-index: 1030;
+        }
+
+        .title {
+          font-size: 24px;
+          font-weight: bold;
+          color: var(--lightgreen);
+        }
+
+        .back-btn {
+          color: #32cd32; /* Text green */
+          padding: 6px 16px;
+          border-radius: 20px;
+          border: 2px solid #32cd32; /* Border green */
+          text-decoration: none;
+          background: transparent; /* No background */
+          transition: 0.3s ease;
+          font-weight: 600;
+          /* Line up button with title */
+          font-size: 16px;
+          line-height: 1;
+        }
+
+        .back-btn:hover {
+          background: #32cd32; /* Green background */
+          color: black; /* Black text on hover */
+        }
+        /* --- END TOP BAR --- */
+
+        /* --- Hero Section Styling --- */
+        .hero-banner {
+          background-color: var(--hero-bg);
+          color: white;
+          padding: 60px 20px;
+          text-align: center;
+          margin-bottom: 30px;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+          background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="none" stroke="%233cb371" stroke-width="2" opacity="0.1"/></svg>');
+          background-repeat: repeat;
+        }
+
+        .hero-banner h1 {
+          font-size: 3.5rem;
+          font-weight: 700;
+          margin-bottom: 10px;
+          text-transform: uppercase;
+        }
+
+        /* --- Main Content Styling (Standard Page Layout) --- */
+        .main-content {
+          padding: 0px 20px 50px 20px;
+          width: 100%;
+          max-width: 1100px;
+          margin: 0 auto;
+        }
+
+        /* Card Styling for Content Sections */
+        .about-card {
+          background-color: white;
+          border: 1px solid var(--border);
+          border-radius: 12px;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+          padding: 30px;
+          height: 100%;
+        }
+        .about-card h3 {
+          color: var(--green);
+          font-weight: 700;
+          margin-bottom: 15px;
+          padding-bottom: 5px;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+        .about-card p {
+          line-height: 1.7;
+          color: #555;
+        }
+
+        /* Button Styling */
+        .btn-main-green {
+          padding: 14px 25px;
+          margin-top: 40px;
+          background: var(--green);
+          color: white;
+          border: 2px solid var(--green);
+          border-radius: 6px;
+          font-size: 17px;
+          font-weight: bold;
+          cursor: pointer;
+          transition: 0.3s ease;
+          text-decoration: none;
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+        }
+
+        .btn-main-green:hover {
+          background: #246e43;
+          color: white;
+          transform: translateY(-2px);
+        }
+        .icon-large {
+          font-size: 1.5rem;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 767.98px) {
+          .hero-banner h1 {
+            font-size: 2.5rem;
+          }
+          .hero-banner {
+            padding: 40px 15px;
+          }
+          .main-content {
+            padding: 0px 15px 40px 15px;
+          }
+        }
+    </style>
+</head>
+<body>
+<div class="top-bar">
+    <div class="title">Fresh Farm</div>
+    <a class="back-btn" th:href="@{/FreshFarm/Home}">← Back to Home</a>
+</div>
+
+<header class="hero-banner">
+    <div class="container">
+        <h1>Our Commitment to Freshness</h1>
+        <p class="lead mt-3">
+            Discover the story behind Fresh Farm, our values, and the people who make it happen.
+        </p>
+    </div>
+</header>
+
+<div class="main-content">
+    <div class="row g-4">
+
+        <div class="col-md-6">
+            <div class="about-card">
+                <h3><i class="bi bi-book icon-large"></i> Our Story</h3>
+                <p>
+                    Fresh Farm was born out of a simple idea: to connect local farmers
+                    directly with our community. Frustrated by the long supply chains
+                    that compromised the quality and freshness of produce, our founders
+                    set out to build a platform where freshness is guaranteed, and
+                    ethical sourcing is standard.
+                </p>
+                <p>
+                    Since our start in 20XX, we've grown into a thriving marketplace
+                    that supports sustainable agriculture and ensures transparency in
+                    the food journey from farm to fork.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="about-card">
+                <h3><i class="bi bi-bullseye icon-large"></i> Our Mission</h3>
+                <p>Our mission is centered on three core principles:</p>
+                <ul>
+                    <li>
+                        **Unbeatable Quality:** We source only the freshest, locally-grown
+                        produce, often harvesting items just hours before delivery.
+                    </li>
+                    <li>
+                        **Farmer Support:** We ensure our partner farmers receive fair
+                        compensation, fostering a resilient local food economy.
+                    </li>
+                    <li>
+                        **Eco-Friendly Choices:** We prioritize farming practices that
+                        reduce environmental impact and promote community health.
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="about-card text-center">
+                <h3 class="justify-content-center"><i class="bi bi-person-hearts icon-large"></i> Our Core Values</h3>
+                <div class="row mt-4">
+                    <div class="col-md-4">
+                        <i class="bi bi-hand-thumbs-up-fill text-success" style="font-size: 2rem;"></i>
+                        <h5 class="mt-2 text-dark">Trust</h5>
+                        <p class="small">Building confidence through transparency and reliable sourcing.</p>
+                    </div>
+                    <div class="col-md-4">
+                        <i class="bi bi-recycle text-success" style="font-size: 2rem;"></i>
+                        <h5 class="mt-2 text-dark">Sustainability</h5>
+                        <p class="small">Committing to practices that protect the planet and future generations.</p>
+                    </div>
+                    <div class="col-md-4">
+                        <i class="bi bi-heart-fill text-success" style="font-size: 2rem;"></i>
+                        <h5 class="mt-2 text-dark">Community</h5>
+                        <p class="small">Investing in the health and vitality of our local regions and partners.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <a th:href="@{/FreshFarm/Category}" class="btn-main-green">
+            Explore Categories <i class="bi bi-arrow-right"></i>
+        </a>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
