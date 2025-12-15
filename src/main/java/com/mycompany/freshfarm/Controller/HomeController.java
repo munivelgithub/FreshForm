@@ -2,9 +2,13 @@ package com.mycompany.freshfarm.Controller;
 
 import com.mycompany.freshfarm.Model.Contact;
 import com.mycompany.freshfarm.Model.Model;
+import com.mycompany.freshfarm.Service.ProductService;
 import com.mycompany.freshfarm.Service.Service;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -12,9 +16,28 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequestMapping("/FreshFarm")
 public class HomeController {
-
+  // CRITICAL: Rename field to use ProductService
+  @Autowired private ProductService productService;
   @Autowired private Service service;
+// --- NEW PUBLIC IMAGE ENDPOINT ---
+  /**
+   * GET /FreshFarm/image/{productId}: Endpoint to serve the decompressed image byte data.
+   * This is used by <img th:src="..."> in templates like Display.html and ProductDetails.html.
+   */
+  @GetMapping("/image/{productId}")
+  public ResponseEntity<byte[]> downloadProductImage(@PathVariable long productId) {
+    // Use the ProductService to get the decompressed bytes
+    byte[] imageBytes = productService.downloadProductImage(productId);
 
+    if (imageBytes != null) {
+      // You should dynamically determine the content type from the database
+      // (product.getImage_type()) if possible, but default is acceptable for now.
+      return ResponseEntity.status(HttpStatus.OK)
+              .contentType(MediaType.IMAGE_JPEG) // Set correct content type
+              .body(imageBytes);
+    }
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+  }
 
   @GetMapping("/Home")
   public String freeFarm() {
@@ -54,6 +77,7 @@ public class HomeController {
     model.addAttribute("single_product_details", m);
     model.addAttribute("category", category);
     return "ProductDetails";
+
   }
 
   @GetMapping("/Contact")

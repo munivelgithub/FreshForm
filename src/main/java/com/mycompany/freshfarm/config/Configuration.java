@@ -36,7 +36,7 @@ public class Configuration {
                 authorize
                         // Allow static resources (CSS, JS, images) and public pages
                         .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
-                        .requestMatchers("/FreshFarm/Register", "/FreshFarm/Login").permitAll()
+                        .requestMatchers("/FreshFarm/Register", "/FreshFarm/Login","/FreshFarm/Admin").permitAll()
                         .requestMatchers("/FreshFarm/Home").permitAll()
 
                         // Protect all other URLs (e.g., checkout, profile, etc.)

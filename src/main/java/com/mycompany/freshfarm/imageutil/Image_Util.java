@@ -1,4 +1,4 @@
-package com.mycompany.freshfarm.imageutil;
+package com.mycompany.freshfarm.imageutil; // Assuming you move it here
 
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;

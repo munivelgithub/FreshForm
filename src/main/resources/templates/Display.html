@@ -190,7 +190,10 @@
       <div class="product-grid">
         <th:block th:each="p : ${products}">
           <div class="product-card">
-            <div class="img-box"></div>
+
+            <div class="img-box">
+              <img th:src="@{/FreshFarm/image/{id}(id=${p.id})}" alt="Product Image">
+            </div>
 
             <div class="info-text">
               <b>Product :</b> <span th:text="${p.name}">Chilli</span>
