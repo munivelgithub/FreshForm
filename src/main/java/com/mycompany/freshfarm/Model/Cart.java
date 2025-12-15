@@ -17,6 +17,9 @@ public class Cart {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
+  // CRITICAL NEW FIELD: Links the cart item to the user's login ID (email)
+  private String username;
+
   private String name;
   private String brand;
   private String itemweight;
@@ -26,8 +29,6 @@ public class Cart {
   private long quantity = 0;
 
   // Calculated field for Thymeleaf usage
-  // Note: Lombok handles getters for fields, but you define custom getters for calculated
-  // properties.
   public long getTotalCost() {
     return this.cost * this.quantity;
   }

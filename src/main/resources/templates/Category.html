@@ -1,258 +1,258 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Product Categories | Fresh Farm</title>
-  <link
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-          rel="stylesheet"
-  />
-  <link
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-  />
-  <style>
-    /* Define the variables */
-    :root {
-      --nav-height: 60px; /* INCREASED HEIGHT */
-      --nav-bg: #000000;
-      --brand-color: #2eff2e;
-      --nav-padding-x: 50px;
-      --nav-padding-y: 12px; /* INCREASED VERTICAL PADDING */
-      --green-text: #2e8b57; /* Darker Green for text */
-      --lightgreen: #32cd32; /* For the button text/border */
-      --list-bg: #f8fff8; /* Very light green background for the list box */
-      --border-color: #dcdcdc;
-    }
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #ffffff;
-      color: var(--green-text);
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding-top: 0;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Categories | Fresh Farm</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <style>
+      /* Define the variables */
+      :root {
+        --nav-height: 60px; /* INCREASED HEIGHT */
+        --nav-bg: #000000;
+        --brand-color: #2eff2e;
+        --nav-padding-x: 50px;
+        --nav-padding-y: 12px; /* INCREASED VERTICAL PADDING */
+        --green-text: #2e8b57; /* Darker Green for text */
+        --lightgreen: #32cd32; /* For the button text/border */
+        --list-bg: #f8fff8; /* Very light green background for the list box */
+        --border-color: #dcdcdc;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #ffffff;
+        color: var(--green-text);
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 0;
+      }
 
-    /* --- Navigation Bar Styles (Fixed) --- */
-    .navbar {
-      width: 100%;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: var(--nav-height); /* Applied increased height */
-      background-color: var(--nav-bg);
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: var(--nav-padding-y) var(--nav-padding-x); /* Applied increased padding */
-      z-index: 1000;
-    }
-
-    .navbar-logo a {
-      font-size: 1.8em;
-      font-weight: bold;
-      color: var(--brand-color);
-      text-decoration: none;
-    }
-
-    .navbar-links {
-      display: flex;
-      align-items: center;
-      margin-right: 60px;
-    }
-
-    /* Back Button Style */
-    .back-btn {
-      color: var(--lightgreen); /* Text green */
-      padding: 6px 16px;
-      border-radius: 20px;
-      border: 2px solid var(--lightgreen); /* Border green */
-      text-decoration: none;
-      background: transparent; /* No background */
-      transition: 0.3s ease;
-      font-weight: 600;
-      font-size: 1.1em;
-      line-height: 1.5;
-    }
-
-    .back-btn:hover {
-      background: var(--lightgreen); /* Green background */
-      color: black; /* Black text on hover */
-    }
-
-    /* --- End Navigation Bar Styles --- */
-
-    .content-wrapper {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-      margin-top: var(--nav-height); /* Adjusted margin-top to match new nav height */
-      padding-bottom: 50px;
-    }
-
-    header {
-      margin-bottom: 30px;
-      width: 100%;
-      text-align: center;
-      padding-top: 20px;
-    }
-
-    h1 {
-      color: var(--green-text);
-      font-size: 2.5em;
-      margin: 0 auto;
-      display: inline-block;
-    }
-
-    /* THE MAIN LIST CONTAINER */
-    .category-container {
-      width: 100%;
-      max-width: 600px;
-      padding: 0 20px;
-      margin: 0 auto;
-      background-color: var(--list-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    }
-
-    /* CATEGORY LIST STYLES */
-    .categories {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .category-item {
-      border-bottom: 1px solid var(--border-color);
-      transition: background-color 0.2s;
-    }
-
-    .category-item:last-child {
-      border-bottom: none;
-    }
-
-    .category-item a {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 18px 25px;
-      text-decoration: none;
-      color: var(--green-text);
-      font-size: 1.2em;
-      font-weight: 600;
-    }
-
-    .category-item:hover {
-      background-color: #e6ffe6; /* Light hover background */
-    }
-
-    .category-item:hover a {
-      color: #1a5332; /* Slightly darker green on hover */
-    }
-
-    /* Responsive Adjustments */
-    @media (max-width: 768px) {
+      /* --- Navigation Bar Styles (Fixed) --- */
       .navbar {
-        padding: var(--nav-padding-y) 15px;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: var(--nav-height); /* Applied increased height */
+        background-color: var(--nav-bg);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: var(--nav-padding-y) var(--nav-padding-x); /* Applied increased padding */
+        z-index: 1000;
       }
+
+      .navbar-logo a {
+        font-size: 1.8em;
+        font-weight: bold;
+        color: var(--brand-color);
+        text-decoration: none;
+      }
+
       .navbar-links {
-          margin-right: 0;
+        display: flex;
+        align-items: center;
+        margin-right: 60px;
       }
+
+      /* Back Button Style */
       .back-btn {
-          margin-right: 0;
+        color: var(--lightgreen); /* Text green */
+        padding: 6px 16px;
+        border-radius: 20px;
+        border: 2px solid var(--lightgreen); /* Border green */
+        text-decoration: none;
+        background: transparent; /* No background */
+        transition: 0.3s ease;
+        font-weight: 600;
+        font-size: 1.1em;
+        line-height: 1.5;
       }
+
+      .back-btn:hover {
+        background: var(--lightgreen); /* Green background */
+        color: black; /* Black text on hover */
+      }
+
+      /* --- End Navigation Bar Styles --- */
+
+      .content-wrapper {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        margin-top: var(
+          --nav-height
+        ); /* Adjusted margin-top to match new nav height */
+        padding-bottom: 50px;
+      }
+
+      header {
+        margin-bottom: 30px;
+        width: 100%;
+        text-align: center;
+        padding-top: 20px;
+      }
+
+      h1 {
+        color: var(--green-text);
+        font-size: 2.5em;
+        margin: 0 auto;
+        display: inline-block;
+      }
+
+      /* THE MAIN LIST CONTAINER */
       .category-container {
-          max-width: 95%;
+        width: 100%;
+        max-width: 600px;
+        padding: 0 20px;
+        margin: 0 auto;
+        background-color: var(--list-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
       }
-    }
-  </style>
-</head>
-<body>
-<nav class="navbar">
-  <div class="navbar-logo">
-    <a href="#top">Fresh Farm</a>
-  </div>
-  <div class="navbar-links">
-    <a th:href="@{/FreshFarm/Home}" class="back-btn">&larr; Back to Home</a>
-  </div>
-</nav>
-<div class="content-wrapper">
-  <header>
-    <h1>Product Categories</h1>
-  </header>
 
-  <main class="category-container">
-    <ul class="categories">
+      /* CATEGORY LIST STYLES */
+      .categories {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
 
-      <li class="category-item">
-        <a th:href="@{/FreshFarm/Category/Vegetable}">
-          <div>Vegetables</div>
-          <i class="bi bi-chevron-right"></i>
-        </a>
-      </li>
+      .category-item {
+        border-bottom: 1px solid var(--border-color);
+        transition: background-color 0.2s;
+      }
 
-      <li class="category-item">
-        <a th:href="@{/FreshFarm/Category/Fruit}">
-          <div>Fruits</div>
-          <i class="bi bi-chevron-right"></i>
-        </a>
-      </li>
+      .category-item:last-child {
+        border-bottom: none;
+      }
 
-      <li class="category-item">
-        <a th:href="@{/FreshFarm/Category/Powder}">
-          <div>Powders</div>
-          <i class="bi bi-chevron-right"></i>
-        </a>
-      </li>
+      .category-item a {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 18px 25px;
+        text-decoration: none;
+        color: var(--green-text);
+        font-size: 1.2em;
+        font-weight: 600;
+      }
 
-      <li class="category-item">
-        <a th:href="@{/FreshFarm/Category/Pickle}">
-          <div>Pickles</div>
-          <i class="bi bi-chevron-right"></i>
-        </a>
-      </li>
+      .category-item:hover {
+        background-color: #e6ffe6; /* Light hover background */
+      }
 
-      <li class="category-item">
-        <a th:href="@{/FreshFarm/Category/Grain}">
-          <div>Grains</div>
-          <i class="bi bi-chevron-right"></i>
-        </a>
-      </li>
+      .category-item:hover a {
+        color: #1a5332; /* Slightly darker green on hover */
+      }
 
-      <li class="category-item">
-        <a th:href="@{/FreshFarm/Category/Spice}">
-          <div>Spices</div>
-          <i class="bi bi-chevron-right"></i>
-        </a>
-      </li>
+      /* Responsive Adjustments */
+      @media (max-width: 768px) {
+        .navbar {
+          padding: var(--nav-padding-y) 15px;
+        }
+        .navbar-links {
+          margin-right: 0;
+        }
+        .back-btn {
+          margin-right: 0;
+        }
+        .category-container {
+          max-width: 95%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="navbar-logo">
+        <a href="#top">Fresh Farm</a>
+      </div>
+      <div class="navbar-links">
+        <a th:href="@{/FreshFarm/Home}" class="back-btn">&larr; Back to Home</a>
+      </div>
+    </nav>
+    <div class="content-wrapper">
+      <header>
+        <h1>Product Categories</h1>
+      </header>
 
-      <li class="category-item">
-        <a th:href="@{/FreshFarm/Category/Dairy}">
-          <div>Dairy</div>
-          <i class="bi bi-chevron-right"></i>
-        </a>
-      </li>
+      <main class="category-container">
+        <ul class="categories">
+          <li class="category-item">
+            <a th:href="@{/FreshFarm/Category/Vegetable}">
+              <div>Vegetables</div>
+              <i class="bi bi-chevron-right"></i>
+            </a>
+          </li>
 
-      <li class="category-item">
-        <a th:href="@{/FreshFarm/Category/Oil}">
-          <div>Oils</div>
-          <i class="bi bi-chevron-right"></i>
-        </a>
-      </li>
+          <li class="category-item">
+            <a th:href="@{/FreshFarm/Category/Fruit}">
+              <div>Fruits</div>
+              <i class="bi bi-chevron-right"></i>
+            </a>
+          </li>
 
-    </ul>
-  </main>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+          <li class="category-item">
+            <a th:href="@{/FreshFarm/Category/Powder}">
+              <div>Powders</div>
+              <i class="bi bi-chevron-right"></i>
+            </a>
+          </li>
+
+          <li class="category-item">
+            <a th:href="@{/FreshFarm/Category/Pickle}">
+              <div>Pickles</div>
+              <i class="bi bi-chevron-right"></i>
+            </a>
+          </li>
+
+          <li class="category-item">
+            <a th:href="@{/FreshFarm/Category/Grain}">
+              <div>Grains</div>
+              <i class="bi bi-chevron-right"></i>
+            </a>
+          </li>
+
+          <li class="category-item">
+            <a th:href="@{/FreshFarm/Category/Spice}">
+              <div>Spices</div>
+              <i class="bi bi-chevron-right"></i>
+            </a>
+          </li>
+
+          <li class="category-item">
+            <a th:href="@{/FreshFarm/Category/Dairy}">
+              <div>Dairy</div>
+              <i class="bi bi-chevron-right"></i>
+            </a>
+          </li>
+
+          <li class="category-item">
+            <a th:href="@{/FreshFarm/Category/Oil}">
+              <div>Oils</div>
+              <i class="bi bi-chevron-right"></i>
+            </a>
+          </li>
+        </ul>
+      </main>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>

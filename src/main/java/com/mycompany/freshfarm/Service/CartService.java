@@ -1,76 +1,90 @@
 package com.mycompany.freshfarm.Service;
 
 import com.mycompany.freshfarm.Model.Cart;
-import com.mycompany.freshfarm.Model.Model;
+import com.mycompany.freshfarm.Model.Model; // Assuming this is your Product Model
 import com.mycompany.freshfarm.Repository.CartRepository;
 import com.mycompany.freshfarm.Repository.Repository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.Optional;
 
 @Service
 public class CartService {
   @Autowired private CartRepository repository;
   @Autowired private Repository rep;
 
-  public void addProducttocart(long id) {
+  // --- Utility to get all items for the CURRENT user ---
+  public List<Cart> getall(String username) {
+    return repository.findByUsername(username); // USE CUSTOM REPOSITORY METHOD
+  }
+
+  // --- Add to Cart (Requires username) ---
+  public void addProducttocart(long id, String username) {
     Model m = rep.findById(id).orElse(null);
-    Cart cart = new Cart();
-    cart.setBrand(m.getBrand());
-    cart.setCost(m.getCost());
-    cart.setCategory(m.getCategory());
-    cart.setItemweight(m.getItemweight());
-    cart.setDescription(m.getDescription());
-    cart.setName(m.getName());
-    cart.setQuantity(m.getQuantity());
-    repository.save(cart);
+    if (m != null) {
+
+      // Check if item already exists for this user (to increment quantity instead of creating a new row)
+      // You would typically have a specific query for this, but for simplicity, we'll just check if it exists globally.
+      // **BETTER LOGIC (requires another repository method): repository.findByUsernameAndProductId(username, m.getId())**
+
+      Cart cart = new Cart();
+      cart.setUsername(username); // SET USERNAME
+      cart.setBrand(m.getBrand());
+      cart.setCost(m.getCost());
+      cart.setCategory(m.getCategory());
+      cart.setItemweight(m.getItemweight());
+      cart.setDescription(m.getDescription());
+      cart.setName(m.getName());
+      cart.setQuantity(1); // Set initial quantity to 1
+      repository.save(cart);
+    }
   }
 
-  public List<Cart> getall() {
-    return repository.findAll();
+  // --- Count (Requires username) ---
+  public long countofcart(String username) {
+    return repository.countByUsername(username); // USE CUSTOM REPOSITORY METHOD
   }
 
-  public long countofcart() {
-    return repository.count();
-  }
+  // --- Update Quantity (CRITICAL: Must verify item belongs to user) ---
+  public void updateQuantity(long productId, String action, String username) {
 
-  public void updateQuantity(long productId, String action) {
+    // Retrieve item AND check ownership
+    Optional<Cart> cartItemOptional = repository.findByIdAndUsername(productId, username);
 
-    Cart cartItem = repository.findById(productId).orElse(null);
-    if (cartItem != null) {
+    if (cartItemOptional.isPresent()) {
+      Cart cartItem = cartItemOptional.get();
       long currentQuantity = cartItem.getQuantity();
+
       if ("increase".equalsIgnoreCase(action)) {
-        // 2. Increase the quantity
         cartItem.setQuantity(currentQuantity + 1);
 
       } else if ("decrease".equalsIgnoreCase(action)) {
-        // 3. Decrease the quantity, but never go below 1 (or 0, depending on logic)
         if (currentQuantity > 1) {
           cartItem.setQuantity(currentQuantity - 1);
         } else {
-          // OPTIONAL: If quantity hits 0 or less, you might want to remove the item entirely
-          // cartRepository.delete(cartItem);
-          cartItem.setQuantity(0); // Set to 0 if you want to keep the record
+          // If quantity is 1 and we decrease, delete the item
+          repository.delete(cartItem);
+          return; // Exit after deleting
         }
       }
 
-      // 4. Save the updated item back to the database
       repository.save(cartItem);
     }
   }
 
-  public void delete(long id) {
-    repository.deleteById(id);
+  // --- Delete (CRITICAL: Must verify item belongs to user) ---
+  public void delete(long id, String username) {
+    // Check if the item exists and belongs to the user before deleting
+    repository.findByIdAndUsername(id, username).ifPresent(repository::delete);
   }
 
-  // Inside com.mycompany.freshfarm.Service.CartService
-
-  public long grandtotal() {
-    List<Cart> total = getall(); // Assuming this is defined/implemented in the service
-    long grandTotal = 0; // Use descriptive variable name
+  // --- Grand Total (Requires username) ---
+  public long grandtotal(String username) {
+    List<Cart> total = getall(username); // Get only the current user's cart
+    long grandTotal = 0;
 
     for (Cart c : total) {
-      // CORRECTED: Calculate (Unit Price * Quantity) for each item
       grandTotal += c.getCost() * c.getQuantity();
     }
 

@@ -1,267 +1,267 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8" />
-  <title>Product Details | Fresh Farm</title>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Product Details | Fresh Farm</title>
 
-  <style>
-    :root {
-      --green: #2e8b57;
-      --lightgreen: #32cd32;
-      --bg: #f5f5f5;
-      --border: #dcdcdc;
-      --text: #1a1a1a;
-    }
+    <style>
+      :root {
+        --green: #2e8b57;
+        --lightgreen: #32cd32;
+        --bg: #f5f5f5;
+        --border: #dcdcdc;
+        --text: #1a1a1a;
+      }
 
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-    }
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+      }
 
-    /* NAV BAR */
-    .top-bar {
-      background: #000;
-      padding: 15px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+      /* NAV BAR */
+      .top-bar {
+        background: #000;
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
 
-    .title {
-      font-size: 24px;
-      font-weight: bold;
-      color: var(--lightgreen);
-    }
-
-    .back-btn {
-      color: #32cd32; /* Text green */
-      padding: 6px 16px;
-      border-radius: 20px;
-      border: 2px solid #32cd32; /* Border green */
-      text-decoration: none;
-      background: transparent; /* No background */
-      transition: 0.3s ease;
-      font-weight: 600;
-    }
-
-    .back-btn:hover {
-      background: #32cd32; /* Green background */
-      color: black; /* Black text on hover */
-    }
-
-    /* MAIN CONTAINER */
-    .container {
-      max-width: 1200px;
-      margin: auto;
-      padding: 25px;
-    }
-
-    .center-title {
-      font-size: 28px;
-      font-weight: bold;
-      color: var(--green);
-      text-align: center;
-      margin-bottom: 25px;
-    }
-
-    /* DETAILS SECTION */
-    .details-box {
-      display: flex;
-      gap: 35px;
-      flex-wrap: wrap;
-    }
-
-    .img-card,
-    .info-card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 22px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.07);
-    }
-
-    .img-card {
-      flex: 1;
-      min-width: 330px;
-      text-align: center;
-    }
-
-    .placeholder {
-      padding: 40px 10px;
-      color: var(--green);
-    }
-
-    .info-card {
-      flex: 1.2;
-      min-width: 350px;
-    }
-
-    .price {
-      font-size: 32px;
-      font-weight: bold;
-      color: #d6272f;
-    }
-
-    .weight {
-      font-size: 18px;
-      margin-left: 3px;
-      color: var(--green);
-    }
-
-    /* SPECIFICATION LIST */
-    .spec-list {
-      margin-top: 15px;
-    }
-
-    .spec-item {
-      display: flex;
-      justify-content: space-between;
-      border-bottom: 1px solid var(--border);
-      padding: 12px 0;
-      font-size: 16px;
-    }
-
-    /* QUANTITY SELECTOR STYLE (Unchanged) */
-    .quantity-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 15px 0 10px 0;
-      margin-top: 15px;
-      border-top: 1px solid var(--border);
-    }
-
-    .quantity-input {
-      width: 80px;
-      padding: 8px;
-      border: 1px solid var(--green);
-      border-radius: 4px;
-      text-align: center;
-      font-size: 16px;
-    }
-    /* END QUANTITY SELECTOR STYLE */
-
-    /* BUTTONS */
-    .btn-main {
-      width: 100%;
-      padding: 14px;
-      margin-top: 16px;
-      background: white;
-      color: var(--green);
-      border: 2px solid var(--green);
-      /* UPDATED: Oval/Fully Rounded Edges */
-      border-radius: 30px;
-      font-size: 17px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s ease;
-    }
-
-    .btn-main:hover {
-      background: var(--green);
-      color: white;
-    }
-
-    /* Ensure the link text inherits the correct color */
-    .btn-main a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    /* Explicitly ensure link color is white on hover */
-    .btn-main:hover a {
-      color: white;
-    }
-
-    /* DESCRIPTION */
-    .desc-box {
-      background: #fff;
-      padding: 25px;
-      margin-top: 35px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.07);
-    }
-
-    .desc-box h3 {
-      margin-bottom: 12px;
-      color: var(--green);
-    }
-
-    /* RESPONSIVE */
-    @media (max-width: 768px) {
-      .center-title {
+      .title {
         font-size: 24px;
+        font-weight: bold;
+        color: var(--lightgreen);
+      }
+
+      .back-btn {
+        color: #32cd32; /* Text green */
+        padding: 6px 16px;
+        border-radius: 20px;
+        border: 2px solid #32cd32; /* Border green */
+        text-decoration: none;
+        background: transparent; /* No background */
+        transition: 0.3s ease;
+        font-weight: 600;
+      }
+
+      .back-btn:hover {
+        background: #32cd32; /* Green background */
+        color: black; /* Black text on hover */
+      }
+
+      /* MAIN CONTAINER */
+      .container {
+        max-width: 1200px;
+        margin: auto;
+        padding: 25px;
+      }
+
+      .center-title {
+        font-size: 28px;
+        font-weight: bold;
+        color: var(--green);
+        text-align: center;
+        margin-bottom: 25px;
+      }
+
+      /* DETAILS SECTION */
+      .details-box {
+        display: flex;
+        gap: 35px;
+        flex-wrap: wrap;
+      }
+
+      .img-card,
+      .info-card {
+        background: white;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 22px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.07);
+      }
+
+      .img-card {
+        flex: 1;
+        min-width: 330px;
+        text-align: center;
+      }
+
+      .placeholder {
+        padding: 40px 10px;
+        color: var(--green);
+      }
+
+      .info-card {
+        flex: 1.2;
+        min-width: 350px;
       }
 
       .price {
-        font-size: 26px;
+        font-size: 32px;
+        font-weight: bold;
+        color: #d6272f;
       }
-    }
-  </style>
-</head>
 
-<body>
-<div class="top-bar">
-  <div class="title">Fresh Farm</div>
-  <a
-          class="back-btn"
-          th:href="@{/FreshFarm/Category/{name}(name=${category})}"
-  >← Back</a
-  >
-</div>
+      .weight {
+        font-size: 18px;
+        margin-left: 3px;
+        color: var(--green);
+      }
 
-<div class="container" th:object="${single_product_details}">
-  <div class="center-title" th:text="*{name}">Product Name</div>
+      /* SPECIFICATION LIST */
+      .spec-list {
+        margin-top: 15px;
+      }
 
-  <div class="details-box">
-    <div class="img-card">
-      <div class="placeholder">
-        <h3>Image Coming Soon</h3>
-        <p>Product preview will appear here</p>
-      </div>
+      .spec-item {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid var(--border);
+        padding: 12px 0;
+        font-size: 16px;
+      }
+
+      /* QUANTITY SELECTOR STYLE (Unchanged) */
+      .quantity-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px 0 10px 0;
+        margin-top: 15px;
+        border-top: 1px solid var(--border);
+      }
+
+      .quantity-input {
+        width: 80px;
+        padding: 8px;
+        border: 1px solid var(--green);
+        border-radius: 4px;
+        text-align: center;
+        font-size: 16px;
+      }
+      /* END QUANTITY SELECTOR STYLE */
+
+      /* BUTTONS */
+      .btn-main {
+        width: 100%;
+        padding: 14px;
+        margin-top: 16px;
+        background: white;
+        color: var(--green);
+        border: 2px solid var(--green);
+        /* UPDATED: Oval/Fully Rounded Edges */
+        border-radius: 30px;
+        font-size: 17px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s ease;
+      }
+
+      .btn-main:hover {
+        background: var(--green);
+        color: white;
+      }
+
+      /* Ensure the link text inherits the correct color */
+      .btn-main a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      /* Explicitly ensure link color is white on hover */
+      .btn-main:hover a {
+        color: white;
+      }
+
+      /* DESCRIPTION */
+      .desc-box {
+        background: #fff;
+        padding: 25px;
+        margin-top: 35px;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.07);
+      }
+
+      .desc-box h3 {
+        margin-bottom: 12px;
+        color: var(--green);
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 768px) {
+        .center-title {
+          font-size: 24px;
+        }
+
+        .price {
+          font-size: 26px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="top-bar">
+      <div class="title">Fresh Farm</div>
+      <a
+        class="back-btn"
+        th:href="@{/FreshFarm/Category/{name}(name=${category})}"
+        >← Back</a
+      >
     </div>
 
-    <div class="info-card">
-      <p class="price">
-        ₹ <span th:text="*{cost}">120</span>
-        <span class="weight" th:text="*{itemweight}">/ 1kg</span>
-      </p>
+    <div class="container" th:object="${single_product_details}">
+      <div class="center-title" th:text="*{name}">Product Name</div>
 
-      <div class="spec-list">
-        <div class="spec-item">
-          <strong>Name:</strong> <span th:text="*{name}"></span>
+      <div class="details-box">
+        <div class="img-card">
+          <div class="placeholder">
+            <h3>Image Coming Soon</h3>
+            <p>Product preview will appear here</p>
+          </div>
         </div>
-        <div class="spec-item">
-          <strong>Category:</strong> <span th:text="*{category}"></span>
-        </div>
-        <div class="spec-item">
-          <strong>Brand:</strong> <span th:text="*{brand}"></span>
-        </div>
-        <div class="spec-item">
-          <strong>Net Weight:</strong> <span th:text="*{itemweight}"></span>
-        </div>
-        <div class="spec-item">
-          <strong>Quantity Available:</strong>
-          <span th:text="*{quantity}"></span>
+
+        <div class="info-card">
+          <p class="price">
+            ₹ <span th:text="*{cost}">120</span>
+            <span class="weight" th:text="*{itemweight}">/ 1kg</span>
+          </p>
+
+          <div class="spec-list">
+            <div class="spec-item">
+              <strong>Name:</strong> <span th:text="*{name}"></span>
+            </div>
+            <div class="spec-item">
+              <strong>Category:</strong> <span th:text="*{category}"></span>
+            </div>
+            <div class="spec-item">
+              <strong>Brand:</strong> <span th:text="*{brand}"></span>
+            </div>
+            <div class="spec-item">
+              <strong>Net Weight:</strong> <span th:text="*{itemweight}"></span>
+            </div>
+            <div class="spec-item">
+              <strong>Quantity Available:</strong>
+              <span th:text="*{quantity}"></span>
+            </div>
+          </div>
+
+          <button class="btn-main">
+            <a th:href="@{/Carts/Particular/{id}(id=*{id})}">Add to Cart</a>
+          </button>
+
+          <button class="btn-main">Buy Now</button>
         </div>
       </div>
 
-      <button class="btn-main">
-        <a th:href="@{/Carts/Particular/{id}(id=*{id})}">Add to Cart</a>
-      </button>
-
-      <button class="btn-main">Buy Now</button>
+      <div class="desc-box">
+        <h3>Description</h3>
+        <p th:text="*{description}">Product description goes here...</p>
+      </div>
     </div>
-  </div>
-
-  <div class="desc-box">
-    <h3>Description</h3>
-    <p th:text="*{description}">Product description goes here...</p>
-  </div>
-</div>
-</body>
+  </body>
 </html>

@@ -15,6 +15,7 @@ public class HomeController {
 
   @Autowired private Service service;
 
+
   @GetMapping("/Home")
   public String freeFarm() {
     return "Home";
@@ -72,11 +73,12 @@ public class HomeController {
   }
 
   @GetMapping("/AboutUs")
-  public String about(){
+  public String about() {
     return "About";
   }
+
   @GetMapping("/Service")
-  public String service(){
+  public String service() {
     return "Service";
   }
 }
