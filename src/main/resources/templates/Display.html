@@ -192,7 +192,11 @@
           <div class="product-card">
 
             <div class="img-box">
-              <img th:src="@{/FreshFarm/image/{id}(id=${p.id})}" alt="Product Image">
+              <img
+                      th:src="@{/FreshFarm/image/{id}(id=${p.id})}"
+                      th:alt="${p.name} + ' Image'"
+                      style="width: 100%; height: 100%; object-fit: cover;"
+              />
             </div>
 
             <div class="info-text">

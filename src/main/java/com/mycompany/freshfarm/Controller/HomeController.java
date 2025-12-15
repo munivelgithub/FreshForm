@@ -33,7 +33,7 @@ public class HomeController {
       // You should dynamically determine the content type from the database
       // (product.getImage_type()) if possible, but default is acceptable for now.
       return ResponseEntity.status(HttpStatus.OK)
-              .contentType(MediaType.IMAGE_JPEG) // Set correct content type
+              .contentType(MediaType.IMAGE_PNG) // Set correct content type
               .body(imageBytes);
     }
     return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
