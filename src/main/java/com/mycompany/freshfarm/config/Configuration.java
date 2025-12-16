@@ -74,7 +74,6 @@ public class Configuration {
                         "/**/*.css", "/**/*.js", "/webjars/**");
     }
 
-
     @Bean
     public UserDetailsManager userDetailsService() {
         // JdbcUserDetailsManager uses the standard 'users' and 'authorities' tables

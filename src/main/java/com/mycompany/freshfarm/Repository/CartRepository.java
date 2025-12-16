@@ -21,7 +21,7 @@ public interface CartRepository extends JpaRepository<Cart, Long> {
   // This is used for updates and deletions to prevent User A from modifying User B's cart.
   // Query: SELECT * FROM cart WHERE id = ? AND username = ?
   Optional<Cart> findByIdAndUsername(long id, String username);
-
+  Cart findByNameAndUsername(String name, String username);
   // Note: The original 'long count()' method is implicitly covered by JpaRepository's count(),
   // but the findByUsername methods are essential for user isolation.
 }

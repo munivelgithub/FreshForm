@@ -21,25 +21,36 @@ public class CartService {
 
   // --- Add to Cart (Requires username) ---
   public void addProducttocart(long id, String username) {
-    Model m = rep.findById(id).orElse(null);
-    if (m != null) {
 
-      // Check if item already exists for this user (to increment quantity instead of creating a new row)
-      // You would typically have a specific query for this, but for simplicity, we'll just check if it exists globally.
-      // **BETTER LOGIC (requires another repository method): repository.findByUsernameAndProductId(username, m.getId())**
-
-      Cart cart = new Cart();
-      cart.setUsername(username); // SET USERNAME
-      cart.setBrand(m.getBrand());
-      cart.setCost(m.getCost());
-      cart.setCategory(m.getCategory());
-      cart.setItemweight(m.getItemweight());
-      cart.setDescription(m.getDescription());
-      cart.setName(m.getName());
-      cart.setQuantity(1); // Set initial quantity to 1
-      repository.save(cart);
+    Model product = rep.findById(id).orElse(null);
+    if (product == null) {
+      return; // product not found
     }
+
+    // Find existing cart item for this user + product
+    Cart existingCart = repository.findByNameAndUsername(product.getName(), username);
+
+    if (existingCart != null) {
+      // Product already in cart → update quantity
+      existingCart.setQuantity(existingCart.getQuantity() + 1);
+      repository.save(existingCart);
+      return;
+    }
+
+    // Product NOT in cart → add new item
+    Cart cart = new Cart();
+    cart.setUsername(username);
+    cart.setBrand(product.getBrand());
+    cart.setCost(product.getCost());
+    cart.setCategory(product.getCategory());
+    cart.setItemweight(product.getItemweight());
+    cart.setDescription(product.getDescription());
+    cart.setName(product.getName());
+    cart.setQuantity(1);
+
+    repository.save(cart);
   }
+
 
   // --- Count (Requires username) ---
   public long countofcart(String username) {
