@@ -3,8 +3,10 @@ package com.mycompany.freshfarm.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,6 +20,7 @@ import javax.sql.DataSource;
 
 @org.springframework.context.annotation.Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class Configuration {
     @Autowired
     private DataSource dataSource;
@@ -34,8 +37,6 @@ public class Configuration {
 
         http.authorizeHttpRequests(authorize ->
                 authorize
-                        // Allow static resources (CSS, JS, images) and public pages
-                        .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
                         .requestMatchers("/FreshFarm/Register", "/FreshFarm/Login","/FreshFarm/Admin").permitAll()
                         .requestMatchers("/FreshFarm/Home").permitAll()
 
@@ -66,6 +67,13 @@ public class Configuration {
 
         return http.build();
     }
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> web.ignoring()
+                .requestMatchers("/**/*.png", "/**/*.jpg", "/**/*.jpeg", "/**/*.gif",
+                        "/**/*.css", "/**/*.js", "/webjars/**");
+    }
+
 
     @Bean
     public UserDetailsManager userDetailsService() {

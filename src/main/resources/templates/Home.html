@@ -120,17 +120,18 @@
     .nav-item-auth div {
         display: inline;
     }
+.centered-image {
+  position: fixed;
+  top: var(--nav-height);
+  left: 0;
+  width: 100vw; /* full viewport width */
+  height: calc(100vh - var(--nav-height));
+  object-fit: cover; /* fills the area, crops excess */
+  background-color: #fff; /* optional */
+  z-index: -1;
+}
 
-    /* --- Centered Image Styling (Behind content) --- */
-    .centered-image {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: -1;
-    }
+
 
     /* --- Main Content Styling (Centering) --- */
     .main-content {
@@ -282,12 +283,13 @@
   </div>
 </nav>
 <img
-        th:src="@{/static/Home.png}"
+        th:src="@{/Home.png}"
         alt="Fresh Farm Background"
         class="centered-image"
 />
+
 <div class="main-content">
-  <h1 class="main-heading">FRESH FARM</h1>
+<!--  <h1 class="main-heading">FRESH FARM</h1>-->
   <div class="signup-form">
     <a th:href="@{/FreshFarm/Category}" class="btn-more-products">
       More about products &rarr;
