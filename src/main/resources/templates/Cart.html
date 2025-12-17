@@ -176,7 +176,7 @@
                   >
                   <div class="text-muted small">
                     <span th:text="${cart.category}">Category</span> •
-                    <span th:text="${cart.itemweight}">Weight</span>
+                    <span th:text="${cart.itemweight}+' /kg = ₹'+${cart.cost}">Weight</span>
                   </div>
                   <div class="text-success small fw-bold mt-1">In Stock</div>
 

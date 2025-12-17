@@ -208,12 +208,12 @@
 
             <div class="info-text">
               <b>Weight :</b>
-              <span th:text="${p.itemweight} + ' KG'">1 KG</span>
+              <span th:text="${p.itemweight} + ' kg'">1 KG</span>
             </div>
 
             <div class="info-text">
-              <b>Quantity :</b>
-              <span th:text="${p.quantity != 0 ? p.quantity : 'N/A'}"></span>
+              <b>Available Quantity :</b>
+              <span th:text="${p.quantity != 0 ? p.quantity : 'N/A'}+' kg'"></span>
             </div>
             <div class="price">
               <span th:text="'₹ ' + ${p.cost}">₹120</span>

@@ -226,7 +226,7 @@
         <div class="info-card">
           <p class="price">
             ₹ <span th:text="*{cost}">120</span>
-            <span class="weight" th:text="*{itemweight}">/ 1kg</span>
+            <span class="weight" th:text="*{itemweight}+' /kg'">/ 1kg</span>
           </p>
 
           <div class="spec-list">
@@ -240,11 +240,11 @@
               <strong>Brand:</strong> <span th:text="*{brand}"></span>
             </div>
             <div class="spec-item">
-              <strong>Net Weight:</strong> <span th:text="*{itemweight}"></span>
+              <strong>Net Weight:</strong> <span th:text="*{itemweight}+' kg'"></span>
             </div>
             <div class="spec-item">
-              <strong>Quantity Available:</strong>
-              <span th:text="*{quantity}"></span>
+              <strong>Available Quantity:</strong>
+              <span th:text="*{quantity}+' kg'"></span>
             </div>
           </div>
 
