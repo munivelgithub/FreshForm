@@ -22,6 +22,7 @@ public class Model {
   @Lob // Denotes a Large Object field
   @Column(name = "product_image_data", columnDefinition = "LONGBLOB")
   private byte[] image_data;
+
   // ---------------------------------------
 
   private String name;

@@ -5,9 +5,9 @@ import com.mycompany.freshfarm.Model.Model; // Assuming this is your Product Mod
 import com.mycompany.freshfarm.Repository.CartRepository;
 import com.mycompany.freshfarm.Repository.Repository;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.Optional;
 
 @Service
 public class CartService {
@@ -26,14 +26,14 @@ public class CartService {
     if (product == null) {
       return; // product not found
     }
-
     // Find existing cart item for this user + product
     Cart existingCart = repository.findByNameAndUsername(product.getName(), username);
 
     if (existingCart != null) {
-      // Product already in cart → update quantity
-      existingCart.setQuantity(existingCart.getQuantity() + 1);
-      repository.save(existingCart);
+      if (existingCart.getQuantity() < product.getQuantity()) {
+        existingCart.setQuantity(existingCart.getQuantity() + 1);
+        repository.save(existingCart);
+      }
       return;
     }
 
@@ -51,7 +51,6 @@ public class CartService {
     repository.save(cart);
   }
 
-
   // --- Count (Requires username) ---
   public long countofcart(String username) {
     return repository.countByUsername(username); // USE CUSTOM REPOSITORY METHOD
@@ -59,28 +58,32 @@ public class CartService {
 
   // --- Update Quantity (CRITICAL: Must verify item belongs to user) ---
   public void updateQuantity(long productId, String action, String username) {
-
-    // Retrieve item AND check ownership
     Optional<Cart> cartItemOptional = repository.findByIdAndUsername(productId, username);
 
     if (cartItemOptional.isPresent()) {
       Cart cartItem = cartItemOptional.get();
-      long currentQuantity = cartItem.getQuantity();
+      Model model = rep.findByName(cartItem.getName()).orElse(null);
 
-      if ("increase".equalsIgnoreCase(action)) {
-        cartItem.setQuantity(currentQuantity + 1);
+      if (model != null) {
+        long currentQuantity = cartItem.getQuantity();
 
-      } else if ("decrease".equalsIgnoreCase(action)) {
-        if (currentQuantity > 1) {
-          cartItem.setQuantity(currentQuantity - 1);
-        } else {
-          // If quantity is 1 and we decrease, delete the item
-          repository.delete(cartItem);
-          return; // Exit after deleting
+        if ("increase".equalsIgnoreCase(action)) {
+          // ONLY check stock for increases
+          if (currentQuantity < model.getQuantity()) {
+            cartItem.setQuantity(currentQuantity + 1);
+            repository.save(cartItem);
+          }
+        }
+        else if ("decrease".equalsIgnoreCase(action)) {
+          if (currentQuantity > 1) {
+            cartItem.setQuantity(currentQuantity - 1);
+            repository.save(cartItem);
+          } else {
+            // If quantity is 1 and user clicks decrease, remove it
+            repository.delete(cartItem);
+          }
         }
       }
-
-      repository.save(cartItem);
     }
   }
 

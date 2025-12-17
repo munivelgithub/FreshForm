@@ -19,10 +19,11 @@ public class HomeController {
   // CRITICAL: Rename field to use ProductService
   @Autowired private ProductService productService;
   @Autowired private Service service;
-// --- NEW PUBLIC IMAGE ENDPOINT ---
+
+  // --- NEW PUBLIC IMAGE ENDPOINT ---
   /**
-   * GET /FreshFarm/image/{productId}: Endpoint to serve the decompressed image byte data.
-   * This is used by <img th:src="..."> in templates like Display.html and ProductDetails.html.
+   * GET /FreshFarm/image/{productId}: Endpoint to serve the decompressed image byte data. This is
+   * used by <img th:src="..."> in templates like Display.html and ProductDetails.html.
    */
   @GetMapping("/image/{productId}")
   public ResponseEntity<byte[]> downloadProductImage(@PathVariable long productId) {
@@ -33,8 +34,8 @@ public class HomeController {
       // You should dynamically determine the content type from the database
       // (product.getImage_type()) if possible, but default is acceptable for now.
       return ResponseEntity.status(HttpStatus.OK)
-              .contentType(MediaType.IMAGE_PNG) // Set correct content type
-              .body(imageBytes);
+          .contentType(MediaType.IMAGE_PNG) // Set correct content type
+          .body(imageBytes);
     }
     return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
   }
@@ -77,7 +78,6 @@ public class HomeController {
     model.addAttribute("single_product_details", m);
     model.addAttribute("category", category);
     return "ProductDetails";
-
   }
 
   @GetMapping("/Contact")

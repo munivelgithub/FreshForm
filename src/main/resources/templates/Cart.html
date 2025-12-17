@@ -1,25 +1,34 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8" />
-  <title>Shopping Cart | Fresh Farm</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-  <style>
-    :root {
+  <head>
+    <meta charset="UTF-8" />
+    <title>Shopping Cart | Fresh Farm</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <style>
+      :root {
         --lightgreen: #32cd32;
         --lightgreen-darker: #229922;
         --nav-bg: #000;
         --amazon-price: #b12704;
         --divider-color: #ededed;
         --card-border-color: #d5d9d9;
-    }
+      }
 
-    body { background-color: #f7f7f7; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; }
+      body {
+        background-color: #f7f7f7;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
 
-    /* Navigation */
-    .top-bar {
+      /* Navigation */
+      .top-bar {
         background: var(--nav-bg);
         padding: 15px 25px;
         display: flex;
@@ -28,9 +37,13 @@
         position: sticky;
         top: 0;
         z-index: 1000;
-    }
-    .title { font-size: 24px; font-weight: bold; color: var(--lightgreen); }
-    .back-btn {
+      }
+      .title {
+        font-size: 24px;
+        font-weight: bold;
+        color: var(--lightgreen);
+      }
+      .back-btn {
         color: var(--lightgreen);
         padding: 6px 16px;
         border-radius: 20px;
@@ -38,113 +51,228 @@
         text-decoration: none;
         transition: 0.3s;
         font-size: 0.9rem;
-    }
-    .back-btn:hover { background: var(--lightgreen); color: black; }
+      }
+      .back-btn:hover {
+        background: var(--lightgreen);
+        color: black;
+      }
 
-    /* Cart Layout */
-    .cart-container { background: white; border: 1px solid var(--card-border-color); border-radius: 8px; padding: 2rem; }
-    .cart-item-card { padding: 1.5rem 0; border-bottom: 1px solid var(--divider-color); }
-    .cart-item-card:last-child { border-bottom: none; }
+      /* Cart Layout */
+      .cart-container {
+        background: white;
+        border: 1px solid var(--card-border-color);
+        border-radius: 8px;
+        padding: 2rem;
+      }
+      .cart-item-card {
+        padding: 1.5rem 0;
+        border-bottom: 1px solid var(--divider-color);
+      }
+      .cart-item-card:last-child {
+        border-bottom: none;
+      }
 
-    .product-name { color: #007185; font-size: 1.2rem; font-weight: 600; text-decoration: none; }
-    .product-name:hover { text-decoration: underline; color: #c45500; }
-    .item-price { color: var(--amazon-price); font-weight: 700; font-size: 1.15rem; }
+      .product-name {
+        color: #007185;
+        font-size: 1.2rem;
+        font-weight: 600;
+        text-decoration: none;
+      }
+      .product-name:hover {
+        text-decoration: underline;
+        color: #c45500;
+      }
+      .item-price {
+        color: var(--amazon-price);
+        font-weight: 700;
+        font-size: 1.15rem;
+      }
 
-    /* Controls */
-    .quantity-group { display: flex; align-items: center; gap: 10px; background: #f0f2f2; border-radius: 8px; padding: 4px 8px; border: 1px solid #d5d9d9; }
-    .qty-btn { border: none; background: transparent; font-weight: bold; padding: 0 10px; }
-    .delete-btn { background: none; border: none; color: #007185; font-size: 0.85rem; margin-left: 15px; }
-    .delete-btn:hover { text-decoration: underline; color: #b12704; }
+      /* Controls */
+      .quantity-group {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: #f0f2f2;
+        border-radius: 8px;
+        padding: 4px 8px;
+        border: 1px solid #d5d9d9;
+      }
+      .qty-btn {
+        border: none;
+        background: transparent;
+        font-weight: bold;
+        padding: 0 10px;
+      }
+      .delete-btn {
+        background: none;
+        border: none;
+        color: #007185;
+        font-size: 0.85rem;
+        margin-left: 15px;
+      }
+      .delete-btn:hover {
+        text-decoration: underline;
+        color: #b12704;
+      }
 
-    /* Summary */
-    .summary-card { background: white; border: 1px solid var(--card-border-color); border-radius: 8px; padding: 1.5rem; }
-    .btn-checkout { background-color: var(--lightgreen); border: none; color: white; font-weight: 600; padding: 12px; border-radius: 8px; width: 100%; transition: 0.2s; }
-    .btn-checkout:hover { background-color: var(--lightgreen-darker); }
-  </style>
-</head>
-<body>
+      /* Summary */
+      .summary-card {
+        background: white;
+        border: 1px solid var(--card-border-color);
+        border-radius: 8px;
+        padding: 1.5rem;
+      }
+      .btn-checkout {
+        background-color: var(--lightgreen);
+        border: none;
+        color: white;
+        font-weight: 600;
+        padding: 12px;
+        border-radius: 8px;
+        width: 100%;
+        transition: 0.2s;
+      }
+      .btn-checkout:hover {
+        background-color: var(--lightgreen-darker);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="top-bar">
+      <div class="title">Fresh Farm</div>
+      <a class="back-btn" th:href="@{/FreshFarm/Category}"
+        >← Continue Shopping</a
+      >
+    </div>
 
-<div class="top-bar">
-  <div class="title">Fresh Farm</div>
-  <a class="back-btn" th:href="@{/FreshFarm/Category}">← Continue Shopping</a>
-</div>
+    <div class="container mt-4 mb-5">
+      <div class="row">
+        <div class="col-lg-8">
+          <h1 class="h3 mb-4">Shopping Cart</h1>
 
-<div class="container mt-4 mb-5">
-  <div class="row">
-    <div class="col-lg-8">
-      <h1 class="h3 mb-4">Shopping Cart</h1>
+          <div
+            th:if="${#lists.isEmpty(carts)}"
+            class="cart-container text-center py-5"
+          >
+            <i class="bi bi-cart-x" style="font-size: 3rem; color: #ddd"></i>
+            <h4 class="mt-3">Your cart is empty</h4>
+            <a
+              th:href="@{/FreshFarm/Category}"
+              class="btn btn-outline-success mt-2"
+              >Find Fresh Produce</a
+            >
+          </div>
 
-      <div th:if="${#lists.isEmpty(carts)}" class="cart-container text-center py-5">
-        <i class="bi bi-cart-x" style="font-size: 3rem; color: #ddd;"></i>
-        <h4 class="mt-3">Your cart is empty</h4>
-        <a th:href="@{/FreshFarm/Category}" class="btn btn-outline-success mt-2">Find Fresh Produce</a>
-      </div>
+          <div th:unless="${#lists.isEmpty(carts)}" class="cart-container">
+            <div th:each="cart : ${carts}" class="cart-item-card">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <a
+                    th:href="@{/FreshFarm/ProductDetails/{id}(id=${cart.id})}"
+                    class="product-name"
+                    th:text="${cart.name}"
+                    >Product Name</a
+                  >
+                  <div class="text-muted small">
+                    <span th:text="${cart.category}">Category</span> •
+                    <span th:text="${cart.itemweight}">Weight</span>
+                  </div>
+                  <div class="text-success small fw-bold mt-1">In Stock</div>
 
-      <div th:unless="${#lists.isEmpty(carts)}" class="cart-container">
-        <div th:each="cart : ${carts}" class="cart-item-card">
-          <div class="d-flex justify-content-between">
-            <div>
-              <a th:href="@{/FreshFarm/ProductDetails/{id}(id=${cart.id})}"
-                 class="product-name" th:text="${cart.name}">Product Name</a>
-              <div class="text-muted small">
-                <span th:text="${cart.category}">Category</span> •
-                <span th:text="${cart.itemweight}">Weight</span>
-              </div>
-              <div class="text-success small fw-bold mt-1">In Stock</div>
+                  <div class="d-flex align-items-center mt-3">
+                    <form
+                      th:action="@{/Carts/update}"
+                      method="post"
+                      class="quantity-group"
+                    >
+                      <input
+                        type="hidden"
+                        name="productId"
+                        th:value="${cart.id}"
+                      />
+                      <button
+                        type="submit"
+                        name="action"
+                        value="decrease"
+                        class="qty-btn"
+                        th:disabled="${cart.quantity le 1}"
+                      >
+                        −
+                      </button>
+                      <span class="fw-bold" th:text="${cart.quantity}">1</span>
+                      <button
+                        type="submit"
+                        name="action"
+                        value="increase"
+                        class="qty-btn"
+                      >
+                        +
+                      </button>
+                    </form>
 
-              <div class="d-flex align-items-center mt-3">
-                <form th:action="@{/Carts/update}" method="post" class="quantity-group">
-                  <input type="hidden" name="productId" th:value="${cart.id}" />
-                  <button type="submit" name="action" value="decrease" class="qty-btn" th:disabled="${cart.quantity le 1}">−</button>
-                  <span class="fw-bold" th:text="${cart.quantity}">1</span>
-                  <button type="submit" name="action" value="increase" class="qty-btn">+</button>
-                </form>
-
-                <form th:action="@{/Carts/delete}" method="post">
-                  <input type="hidden" name="productId" th:value="${cart.id}" />
-                  <button type="submit" class="delete-btn">Delete</button>
-                </form>
+                    <form th:action="@{/Carts/delete}" method="post">
+                      <input
+                        type="hidden"
+                        name="productId"
+                        th:value="${cart.id}"
+                      />
+                      <button type="submit" class="delete-btn">Delete</button>
+                    </form>
+                  </div>
+                </div>
+                <div class="text-end">
+                  <span
+                    class="item-price"
+                    th:text="'₹' + ${cart.cost * cart.quantity}"
+                    >₹0.00</span
+                  >
+                </div>
               </div>
             </div>
-            <div class="text-end">
-              <span class="item-price" th:text="'₹' + ${cart.cost * cart.quantity}">₹0.00</span>
+
+            <div class="text-end mt-4">
+              <h5 class="fw-normal">
+                Subtotal (<span th:text="${productCount}">0</span> items):
+                <strong class="item-price" th:text="'₹' + ${grand_total}"
+                  >₹0.00</strong
+                >
+              </h5>
             </div>
           </div>
         </div>
 
-        <div class="text-end mt-4">
-          <h5 class="fw-normal">Subtotal (<span th:text="${productCount}">0</span> items):
-            <strong class="item-price" th:text="'₹' + ${grand_total}">₹0.00</strong>
-          </h5>
+        <div class="col-lg-4 mt-4 mt-lg-0" th:unless="${#lists.isEmpty(carts)}">
+          <div class="summary-card sticky-top" style="top: 100px">
+            <h5 class="mb-3">Order Summary</h5>
+            <div class="d-flex justify-content-between mb-2">
+              <span>Items:</span>
+              <span th:text="'₹' + ${grand_total}">₹0.00</span>
+            </div>
+            <div class="d-flex justify-content-between mb-4">
+              <span>Shipping:</span>
+              <span class="text-success">FREE</span>
+            </div>
+            <hr />
+            <div class="d-flex justify-content-between mb-4">
+              <span class="h5 fw-bold">Order Total:</span>
+              <span class="h5 fw-bold item-price" th:text="'₹' + ${grand_total}"
+                >₹0.00</span
+              >
+            </div>
+            <button class="btn-checkout">Proceed to Checkout</button>
+            <p
+              class="text-muted x-small text-center mt-3"
+              style="font-size: 0.75rem"
+            >
+              By placing your order, you agree to Fresh Farm's privacy notice
+              and conditions of use.
+            </p>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="col-lg-4 mt-4 mt-lg-0" th:unless="${#lists.isEmpty(carts)}">
-      <div class="summary-card sticky-top" style="top: 100px">
-        <h5 class="mb-3">Order Summary</h5>
-        <div class="d-flex justify-content-between mb-2">
-          <span>Items:</span>
-          <span th:text="'₹' + ${grand_total}">₹0.00</span>
-        </div>
-        <div class="d-flex justify-content-between mb-4">
-          <span>Shipping:</span>
-          <span class="text-success">FREE</span>
-        </div>
-        <hr>
-        <div class="d-flex justify-content-between mb-4">
-          <span class="h5 fw-bold">Order Total:</span>
-          <span class="h5 fw-bold item-price" th:text="'₹' + ${grand_total}">₹0.00</span>
-        </div>
-        <button class="btn-checkout">Proceed to Checkout</button>
-        <p class="text-muted x-small text-center mt-3" style="font-size: 0.75rem;">
-          By placing your order, you agree to Fresh Farm's privacy notice and conditions of use.
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>

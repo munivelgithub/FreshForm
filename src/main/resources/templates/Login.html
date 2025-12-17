@@ -1,219 +1,219 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login | Fresh Farm</title>
 
     <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-            rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
     />
     <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
     />
 
     <style>
-        /* Custom Color Variables based on Product Details page */
-        :root {
-          --green: #2e8b57;
-          --lightgreen: #32cd32;
-          --bg: #f5f5f5; /* Light off-white/greyish background */
-          --border: #dcdcdc;
-          --text: #1a1a1a;
-          --hero-bg: #1a6032; /* Darker green for a strong hero section */
-          --top-bar-height: 60px; /* Define fixed height for top bar */
+      /* Custom Color Variables based on Product Details page */
+      :root {
+        --green: #2e8b57;
+        --lightgreen: #32cd32;
+        --bg: #f5f5f5; /* Light off-white/greyish background */
+        --border: #dcdcdc;
+        --text: #1a1a1a;
+        --hero-bg: #1a6032; /* Darker green for a strong hero section */
+        --top-bar-height: 60px; /* Define fixed height for top bar */
 
-          /* VARIABLES FROM CATALOG CSS */
-          --green-dark: #228b22;
-          --green-light: #32cd32;
-          --nav-bg: #000;
-        }
+        /* VARIABLES FROM CATALOG CSS */
+        --green-dark: #228b22;
+        --green-light: #32cd32;
+        --nav-bg: #000;
+      }
 
-        body {
-          margin: 0;
-          padding-top: var(--top-bar-height); /* Keep padding for fixed bar */
-          font-family: Arial, sans-serif;
-          background: var(--bg);
-          color: var(--text);
-          display: flex;
-          flex-direction: column;
-          min-height: 100vh;
-        }
+      body {
+        margin: 0;
+        padding-top: var(--top-bar-height); /* Keep padding for fixed bar */
+        font-family: Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
 
-        /* --- NAVBAR STYLES (FROM CATALOG) --- */
-        .top-bar {
-          background: var(--nav-bg); /* Black */
-          padding: 15px 25px; /* Adjust padding/height */
-          height: var(--top-bar-height);
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          z-index: 1030;
-        }
+      /* --- NAVBAR STYLES (FROM CATALOG) --- */
+      .top-bar {
+        background: var(--nav-bg); /* Black */
+        padding: 15px 25px; /* Adjust padding/height */
+        height: var(--top-bar-height);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1030;
+      }
 
-        .title {
-          color: var(--green-light);
-          font-size: 24px;
-          font-weight: bold;
-        }
+      .title {
+        color: var(--green-light);
+        font-size: 24px;
+        font-weight: bold;
+      }
 
-        .back-btn {
-          color: var(--green-light);
-          padding: 6px 16px;
-          border-radius: 20px; /* Use 20px for oval shape */
-          border: 2px solid var(--green-light);
-          text-decoration: none;
-          transition: 0.3s;
-          font-weight: 600; /* Added for better visibility */
-        }
+      .back-btn {
+        color: var(--green-light);
+        padding: 6px 16px;
+        border-radius: 20px; /* Use 20px for oval shape */
+        border: 2px solid var(--green-light);
+        text-decoration: none;
+        transition: 0.3s;
+        font-weight: 600; /* Added for better visibility */
+      }
 
-        .back-btn:hover {
-          background: var(--green-light);
-          color: black;
-        }
-        /* --- END NAVBAR STYLES --- */
+      .back-btn:hover {
+        background: var(--green-light);
+        color: black;
+      }
+      /* --- END NAVBAR STYLES --- */
 
-        /* --- Form Specific Styles (Retained) --- */
-        .main-content {
-          flex-grow: 1;
-          display: flex;
-          justify-content: center;
-          align-items: flex-start;
-          padding: 50px 20px;
-          width: 100%;
-          max-width: 1100px;
-          margin: 0 auto;
-        }
+      /* --- Form Specific Styles (Retained) --- */
+      .main-content {
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 50px 20px;
+        width: 100%;
+        max-width: 1100px;
+        margin: 0 auto;
+      }
 
-        .form-card {
-          background-color: white;
-          border: 1px solid var(--border);
-          border-radius: 12px;
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-          padding: 40px;
-          width: 100%;
-          max-width: 450px;
-        }
+      .form-card {
+        background-color: white;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        padding: 40px;
+        width: 100%;
+        max-width: 450px;
+      }
 
-        .form-card h2 {
-          color: var(--green);
-          font-weight: 700;
-          margin-bottom: 30px;
-          text-align: center;
-        }
+      .form-card h2 {
+        color: var(--green);
+        font-weight: 700;
+        margin-bottom: 30px;
+        text-align: center;
+      }
 
-        /* Input and Button Styling */
-        .form-control {
-          border-radius: 8px;
-          padding: 12px 15px;
-          border: 1px solid var(--border);
-        }
-        .form-control:focus {
-          border-color: var(--lightgreen);
-          box-shadow: 0 0 0 0.25rem rgba(50, 205, 50, 0.25);
-        }
+      /* Input and Button Styling */
+      .form-control {
+        border-radius: 8px;
+        padding: 12px 15px;
+        border: 1px solid var(--border);
+      }
+      .form-control:focus {
+        border-color: var(--lightgreen);
+        box-shadow: 0 0 0 0.25rem rgba(50, 205, 50, 0.25);
+      }
 
-        .btn-main-green {
-          width: 100%;
-          padding: 14px 25px;
-          margin-top: 15px;
-          background: var(--green);
-          color: white;
-          border: 2px solid var(--green);
-          border-radius: 6px;
-          font-size: 17px;
-          font-weight: bold;
-          cursor: pointer;
-          transition: 0.3s ease;
-          text-decoration: none;
-          display: inline-flex;
-          justify-content: center;
-          align-items: center;
-          gap: 10px;
-        }
+      .btn-main-green {
+        width: 100%;
+        padding: 14px 25px;
+        margin-top: 15px;
+        background: var(--green);
+        color: white;
+        border: 2px solid var(--green);
+        border-radius: 6px;
+        font-size: 17px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+      }
 
-        .btn-main-green:hover {
-          background: #246e43;
-          color: white;
-          transform: translateY(-1px);
-        }
-        .form-text-link {
-          display: block;
-          text-align: center;
-          margin-top: 20px;
-          font-size: 14px;
-        }
-        .form-text-link a {
-          color: var(--green);
-          text-decoration: none;
-          font-weight: 600;
-        }
-        .form-text-link a:hover {
-          text-decoration: underline;
-        }
+      .btn-main-green:hover {
+        background: #246e43;
+        color: white;
+        transform: translateY(-1px);
+      }
+      .form-text-link {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+        font-size: 14px;
+      }
+      .form-text-link a {
+        color: var(--green);
+        text-decoration: none;
+        font-weight: 600;
+      }
+      .form-text-link a:hover {
+        text-decoration: underline;
+      }
     </style>
-</head>
-<body>
-<div class="top-bar">
-    <div class="title">Fresh Farm</div>
-    <a class="back-btn" th:href="@{/FreshFarm/Home}">← Back to Home</a>
-</div>
+  </head>
+  <body>
+    <div class="top-bar">
+      <div class="title">Fresh Farm</div>
+      <a class="back-btn" th:href="@{/FreshFarm/Home}">← Back to Home</a>
+    </div>
 
-<div class="main-content">
-    <div class="form-card">
+    <div class="main-content">
+      <div class="form-card">
         <h2><i class="bi bi-person-circle"></i> Account Login</h2>
 
         <div th:if="${successMessage}" class="alert alert-success" role="alert">
-            <p th:text="${successMessage}"></p>
+          <p th:text="${successMessage}"></p>
         </div>
 
         <div th:if="${param.error}" class="alert alert-danger" role="alert">
-            Invalid Username or Password.
+          Invalid Username or Password.
         </div>
 
         <form th:action="@{/FreshFarm/Login}" method="post">
-            <div class="mb-3">
-                <label for="username" class="form-label">Email Address</label>
-                <input
-                        type="email"
-                        class="form-control"
-                        id="username"
-                        name="username"
-                        placeholder="name@example.com"
-                        required
-                />
-            </div>
-            <div class="mb-4">
-                <label for="password" class="form-label">Password</label>
-                <input
-                        type="password"
-                        class="form-control"
-                        id="password"
-                        name="password"
-                        placeholder="Enter your password"
-                        required
-                />
-            </div>
+          <div class="mb-3">
+            <label for="username" class="form-label">Email Address</label>
+            <input
+              type="email"
+              class="form-control"
+              id="username"
+              name="username"
+              placeholder="name@example.com"
+              required
+            />
+          </div>
+          <div class="mb-4">
+            <label for="password" class="form-label">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              name="password"
+              placeholder="Enter your password"
+              required
+            />
+          </div>
 
-            <button type="submit" class="btn-main-green">
-                <i class="bi bi-box-arrow-in-right"></i> Login
-            </button>
+          <button type="submit" class="btn-main-green">
+            <i class="bi bi-box-arrow-in-right"></i> Login
+          </button>
         </form>
 
         <div class="form-text-link">
-            Don't have an account?
-            <a th:href="@{/FreshFarm/Register}">Register Here</a>
+          Don't have an account?
+          <a th:href="@{/FreshFarm/Register}">Register Here</a>
         </div>
+      </div>
     </div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>

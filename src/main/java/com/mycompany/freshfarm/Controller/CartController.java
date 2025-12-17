@@ -19,7 +19,9 @@ public class CartController {
   private String getCurrentUsername() {
     // This retrieves the username (email) of the currently logged-in user
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    if (authentication == null || !authentication.isAuthenticated() || "anonymousUser".equals(authentication.getPrincipal())) {
+    if (authentication == null
+        || !authentication.isAuthenticated()
+        || "anonymousUser".equals(authentication.getPrincipal())) {
       return null; // Not logged in
     }
     return authentication.getName();
@@ -58,7 +60,7 @@ public class CartController {
 
   @PostMapping("/update")
   public String updateCart(
-          @RequestParam("productId") long productId, @RequestParam("action") String action) {
+      @RequestParam("productId") long productId, @RequestParam("action") String action) {
     String username = getCurrentUsername();
     if (username == null) {
       return "redirect:/FreshFarm/Login";
